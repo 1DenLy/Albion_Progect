@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="Clotch">
      <attribute name="title">
@@ -40,14 +40,14 @@
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="7" column="4">
-        <widget class="QCheckBox" name="checkBox23">
+       <item row="3" column="4">
+        <widget class="QCheckBox" name="checkBox19">
          <property name="text">
           <string/>
          </property>
          <property name="icon">
           <iconset>
-           <normaloff>Pictures/T6_SHOES_CLOTH_ROYAL@0.png</normaloff>Pictures/T6_SHOES_CLOTH_ROYAL@0.png</iconset>
+           <normaloff>Pictures/T6_SHOES_CLOTH_SET1@0.png</normaloff>Pictures/T6_SHOES_CLOTH_SET1@0.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -60,14 +60,14 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="4">
-        <widget class="QCheckBox" name="checkBox19">
+       <item row="7" column="4">
+        <widget class="QCheckBox" name="checkBox23">
          <property name="text">
           <string/>
          </property>
          <property name="icon">
           <iconset>
-           <normaloff>Pictures/T6_SHOES_CLOTH_SET1@0.png</normaloff>Pictures/T6_SHOES_CLOTH_SET1@0.png</iconset>
+           <normaloff>Pictures/T6_SHOES_CLOTH_ROYAL@0.png</normaloff>Pictures/T6_SHOES_CLOTH_ROYAL@0.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -100,18 +100,6 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="4">
-        <widget class="QPushButton" name="all_19_27">
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Все Сапоги</string>
-         </property>
-        </widget>
-       </item>
        <item row="3" column="0">
         <widget class="QCheckBox" name="checkBox1">
          <property name="text">
@@ -132,26 +120,14 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="2">
-        <widget class="QPushButton" name="all_10_18">
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Все Куртки</string>
-         </property>
-        </widget>
-       </item>
-       <item row="8" column="2">
-        <widget class="QCheckBox" name="checkBox15">
+       <item row="7" column="2">
+        <widget class="QCheckBox" name="checkBox14">
          <property name="text">
           <string/>
          </property>
          <property name="icon">
           <iconset>
-           <normaloff>Pictures/T6_ARMOR_CLOTH_HELL@0.png</normaloff>Pictures/T6_ARMOR_CLOTH_HELL@0.png</iconset>
+           <normaloff>Pictures/T6_ARMOR_CLOTH_ROYAL.png</normaloff>Pictures/T6_ARMOR_CLOTH_ROYAL.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -164,14 +140,14 @@
          </property>
         </widget>
        </item>
-       <item row="7" column="2">
-        <widget class="QCheckBox" name="checkBox14">
+       <item row="6" column="2">
+        <widget class="QCheckBox" name="checkBox13">
          <property name="text">
           <string/>
          </property>
          <property name="icon">
           <iconset>
-           <normaloff>Pictures/T6_ARMOR_CLOTH_ROYAL.png</normaloff>Pictures/T6_ARMOR_CLOTH_ROYAL.png</iconset>
+           <normaloff>Pictures/T6_ARMOR_CLOTH_KEEPER.png</normaloff>Pictures/T6_ARMOR_CLOTH_KEEPER.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -209,34 +185,14 @@
          </property>
         </widget>
        </item>
-       <item row="6" column="2">
-        <widget class="QCheckBox" name="checkBox13">
+       <item row="8" column="2">
+        <widget class="QCheckBox" name="checkBox15">
          <property name="text">
           <string/>
          </property>
          <property name="icon">
           <iconset>
-           <normaloff>Pictures/T6_ARMOR_CLOTH_KEEPER.png</normaloff>Pictures/T6_ARMOR_CLOTH_KEEPER.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>90</width>
-           <height>90</height>
-          </size>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="11" column="2">
-        <widget class="QCheckBox" name="checkBox18">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset>
-           <normaloff>Pictures/T6_ARMOR_CLOTH_FEY@0.png</normaloff>Pictures/T6_ARMOR_CLOTH_FEY@0.png</iconset>
+           <normaloff>Pictures/T6_ARMOR_CLOTH_HELL@0.png</normaloff>Pictures/T6_ARMOR_CLOTH_HELL@0.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -269,6 +225,26 @@
          </property>
         </widget>
        </item>
+       <item row="11" column="2">
+        <widget class="QCheckBox" name="checkBox18">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>Pictures/T6_ARMOR_CLOTH_FEY@0.png</normaloff>Pictures/T6_ARMOR_CLOTH_FEY@0.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>90</width>
+           <height>90</height>
+          </size>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
        <item row="10" column="2">
         <widget class="QCheckBox" name="checkBox17">
          <property name="text">
@@ -289,14 +265,14 @@
          </property>
         </widget>
        </item>
-       <item row="9" column="2">
-        <widget class="QCheckBox" name="checkBox16">
+       <item row="5" column="4">
+        <widget class="QCheckBox" name="checkBox21">
          <property name="text">
           <string/>
          </property>
          <property name="icon">
           <iconset>
-           <normaloff>Pictures/T6_ARMOR_CLOTH_MORGANA.png</normaloff>Pictures/T6_ARMOR_CLOTH_MORGANA.png</iconset>
+           <normaloff>Pictures/T6_SHOES_CLOTH_SET2@0.png</normaloff>Pictures/T6_SHOES_CLOTH_SET2@0.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -309,14 +285,14 @@
          </property>
         </widget>
        </item>
-       <item row="5" column="4">
-        <widget class="QCheckBox" name="checkBox21">
+       <item row="6" column="4">
+        <widget class="QCheckBox" name="checkBox22">
          <property name="text">
           <string/>
          </property>
          <property name="icon">
           <iconset>
-           <normaloff>Pictures/T6_SHOES_CLOTH_SET2@0.png</normaloff>Pictures/T6_SHOES_CLOTH_SET2@0.png</iconset>
+           <normaloff>Pictures/T6_SHOES_CLOTH_KEEPER@0.png</normaloff>Pictures/T6_SHOES_CLOTH_KEEPER@0.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -369,74 +345,14 @@
          </property>
         </widget>
        </item>
-       <item row="6" column="4">
-        <widget class="QCheckBox" name="checkBox22">
+       <item row="9" column="2">
+        <widget class="QCheckBox" name="checkBox16">
          <property name="text">
           <string/>
          </property>
          <property name="icon">
           <iconset>
-           <normaloff>Pictures/T6_SHOES_CLOTH_KEEPER@0.png</normaloff>Pictures/T6_SHOES_CLOTH_KEEPER@0.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>90</width>
-           <height>90</height>
-          </size>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="10" column="4">
-        <widget class="QCheckBox" name="checkBox26">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset>
-           <normaloff>Pictures/T6_SHOES_CLOTH_AVALON@0.png</normaloff>Pictures/T6_SHOES_CLOTH_AVALON@0.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>90</width>
-           <height>90</height>
-          </size>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="9" column="0">
-        <widget class="QCheckBox" name="checkBox7">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset>
-           <normaloff>Pictures/T6_HEAD_CLOTH_MORGANA@0.png</normaloff>Pictures/T6_HEAD_CLOTH_MORGANA@0.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>90</width>
-           <height>90</height>
-          </size>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="8" column="4">
-        <widget class="QCheckBox" name="checkBox24">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset>
-           <normaloff>Pictures/T6_SHOES_CLOTH_HELL@0.png</normaloff>Pictures/T6_SHOES_CLOTH_HELL@0.png</iconset>
+           <normaloff>Pictures/T6_ARMOR_CLOTH_MORGANA.png</normaloff>Pictures/T6_ARMOR_CLOTH_MORGANA.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -469,26 +385,6 @@
          </property>
         </widget>
        </item>
-       <item row="8" column="0">
-        <widget class="QCheckBox" name="checkBox6">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset>
-           <normaloff>Pictures/T6_HEAD_CLOTH_HELL@0.png</normaloff>Pictures/T6_HEAD_CLOTH_HELL@0.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>90</width>
-           <height>90</height>
-          </size>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
        <item row="9" column="4">
         <widget class="QCheckBox" name="checkBox25">
          <property name="text">
@@ -509,14 +405,14 @@
          </property>
         </widget>
        </item>
-       <item row="7" column="0">
-        <widget class="QCheckBox" name="checkBox5">
+       <item row="8" column="0">
+        <widget class="QCheckBox" name="checkBox6">
          <property name="text">
           <string/>
          </property>
          <property name="icon">
           <iconset>
-           <normaloff>Pictures/T6_HEAD_CLOTH_ROYAL@0.png</normaloff>Pictures/T6_HEAD_CLOTH_ROYAL@0.png</iconset>
+           <normaloff>Pictures/T6_HEAD_CLOTH_HELL@0.png</normaloff>Pictures/T6_HEAD_CLOTH_HELL@0.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -549,26 +445,74 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
-        <widget class="QPushButton" name="all_1_9">
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Все Шляпы</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0">
-        <widget class="QCheckBox" name="checkBox3">
+       <item row="7" column="0">
+        <widget class="QCheckBox" name="checkBox5">
          <property name="text">
           <string/>
          </property>
          <property name="icon">
           <iconset>
-           <normaloff>Pictures/T6_HEAD_CLOTH_SET2@0.png</normaloff>Pictures/T6_HEAD_CLOTH_SET2@0.png</iconset>
+           <normaloff>Pictures/T6_HEAD_CLOTH_ROYAL@0.png</normaloff>Pictures/T6_HEAD_CLOTH_ROYAL@0.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>90</width>
+           <height>90</height>
+          </size>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="0">
+        <widget class="QCheckBox" name="checkBox7">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>Pictures/T6_HEAD_CLOTH_MORGANA@0.png</normaloff>Pictures/T6_HEAD_CLOTH_MORGANA@0.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>90</width>
+           <height>90</height>
+          </size>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="4">
+        <widget class="QCheckBox" name="checkBox26">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>Pictures/T6_SHOES_CLOTH_AVALON@0.png</normaloff>Pictures/T6_SHOES_CLOTH_AVALON@0.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>90</width>
+           <height>90</height>
+          </size>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="4">
+        <widget class="QCheckBox" name="checkBox24">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>Pictures/T6_SHOES_CLOTH_HELL@0.png</normaloff>Pictures/T6_SHOES_CLOTH_HELL@0.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -601,39 +545,23 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="2">
-        <widget class="QPushButton" name="all_10_18_del">
-         <property name="font">
-          <font>
-           <pointsize>9</pointsize>
-          </font>
-         </property>
+       <item row="5" column="0">
+        <widget class="QCheckBox" name="checkBox3">
          <property name="text">
-          <string>X</string>
+          <string/>
          </property>
-        </widget>
-       </item>
-       <item row="0" column="4">
-        <widget class="QPushButton" name="all_19_27_del">
-         <property name="font">
-          <font>
-           <pointsize>9</pointsize>
-          </font>
+         <property name="icon">
+          <iconset>
+           <normaloff>Pictures/T6_HEAD_CLOTH_SET2@0.png</normaloff>Pictures/T6_HEAD_CLOTH_SET2@0.png</iconset>
          </property>
-         <property name="text">
-          <string>X</string>
+         <property name="iconSize">
+          <size>
+           <width>90</width>
+           <height>90</height>
+          </size>
          </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QPushButton" name="all_1_9_del">
-         <property name="font">
-          <font>
-           <pointsize>9</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>X</string>
+         <property name="checkable">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -654,6 +582,78 @@
          </property>
          <property name="checkable">
           <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="4">
+        <widget class="QPushButton" name="all_19_27_del">
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>X</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="4">
+        <widget class="QPushButton" name="all_19_27">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Все Сапоги</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QPushButton" name="all_10_18_del">
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>X</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QPushButton" name="all_10_18">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Все Куртки</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QPushButton" name="all_1_9_del">
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>X</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QPushButton" name="all_1_9">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Все Шляпы</string>
          </property>
         </widget>
        </item>
