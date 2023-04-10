@@ -1799,40 +1799,29 @@ class Ui_MainWindow(object):
                                 Item_list.sort
 
 
-    def All_doing(self, status, num_butt, group_button, armor_list):
-        global Item_list
+    # def All_doing(self, status, num_butt, group_button: list, item_list: list):
 
-        if num_butt == '1': ind = range(0, 9)
-        elif num_butt == '2': ind = range(9, 18)
-        elif num_butt == '3': ind = range(18, 27)
+    #     if num_butt == '1': ind = range(0, 9)
+    #     elif num_butt == '2': ind = range(9, 18)
+    #     elif num_butt == '3': ind = range(18, 27)
 
-        if status == 'app': # append
-            
-            if len(Tier_list) and len(Rarity_list) > 0:
-                for button in ind:
-                    group_button.button(button).setChecked(True)
+    #     if len(Tier_list) and len(Rarity_list) > 0:
 
-                    for tier_id in range(len(Tier_list)):
-                        for rarity_id in range(len(Rarity_list)):
-                            
-                            if self.Item(tier_id, button, rarity_id) not in Item_list:
-                                Item_list.append(self.Item(tier_id, button, rarity_id))
-                                Item_list = list(set(Item_list))
-                                Item_list.sort()
+    #         for butt in ind:
 
-        elif status == 'del': # del
-            
-            if len(Tier_list) and len(Rarity_list) > 0:
-                for button in ind:
-                    group_button.button(button).setChecked(False)
+    #             if group_button.button(butt).isChecked():
+    #                 if status == 'del':
+    #                     group_button.button(butt).setChecked(False)
+    #                     if item_list[butt] in Item_list_f: 
+    #                         Item_list_f.remove(item_list[butt])
+                
+    #             else:
+    #                 if status == 'app':
+    #                     group_button.button(butt).setChecked(True)
+    #                     if item_list[butt] not in Item_list_f: 
+    #                         Item_list_f.append(item_list[butt])
 
-                    for tier_id in range(len(Tier_list)):
-                        for rarity_id in range(len(Rarity_list)):
-                            
-                            if self.Item(tier_id, button, rarity_id) in Item_list:
-                                Item_list.remove(self.Item(tier_id, button, rarity_id))
-                                Item_list = list(set(Item_list))
-                                Item_list.sort()
+    #             Item_list_f.sort(reverse= True)
 
     
     def Item_in_list(self):
