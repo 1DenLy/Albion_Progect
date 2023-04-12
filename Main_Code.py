@@ -1506,8 +1506,9 @@ class Ui_MainWindow(object):
         self.All_Citys_group.addButton(self.checkBox_Caerleon, 0)
         self.All_Citys_group.addButton(self.checkBox_Fort_Stearling, 1)
         self.All_Citys_group.addButton(self.checkBox_Martlock, 2)
-        self.All_Citys_group.addButton(self.checkBox_Lymhurst, 3)
-        self.All_Citys_group.addButton(self.checkBox_Bridgewatch, 4)
+        self.All_Citys_group.addButton(self.checkBox_Thetford, 3)
+        self.All_Citys_group.addButton(self.checkBox_Lymhurst, 4)
+        self.All_Citys_group.addButton(self.checkBox_Bridgewatch, 5)
 
         self.Lable_Group_1 = list()
         self.Lable_Group_1.append(self.label_1)
@@ -1679,7 +1680,7 @@ class Ui_MainWindow(object):
                 else:
                     locations_list.append(locations[button_id])
                     locations_list.sort()
-
+        
 
     def Qualities_changing(self, button_id: int):
         global qualities

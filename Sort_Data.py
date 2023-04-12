@@ -15,49 +15,62 @@ sell_price_min_dict = {}
 sell_price_max_dict = {}
 buy_price_min_dict = {}
 buy_price_max_dict = {}
-
+locations = ['Caerleon','Fort Sterling','Lymhurst','Thetford','Martlock','Bridgewatch']
 
 class Item():
     def __init__(self, item_id, city, 
-    sell_price_min, sell_price_min_date, 
-    sell_price_max, sell_price_max_date, 
-    buy_price_min, buy_price_min_date, 
-    buy_price_max, buy_price_max_date) -> int:
-
+                 sell_price_min=None, sell_price_min_date=None, 
+                 sell_price_max=None, sell_price_max_date=None, 
+                 buy_price_min=None, buy_price_min_date=None, 
+                 buy_price_max=None, buy_price_max_date=None):
+        
+        # устанавливаем значения атрибутов при создании экземпляра класса
         self.item_id = item_id
         self.city = city
-        self.sell_price_min = str(sell_price_min)
-        self.sell_price_min_date = sell_price_min_date
-        self.sell_price_max = str(sell_price_max)
-        self.sell_price_max_date = sell_price_max_date
-        self.buy_price_min = str(buy_price_min)
-        self.buy_price_min_date = buy_price_min_date
-        self.buy_price_max = str(buy_price_max)
-        self.buy_price_max_date = buy_price_max_date
+        
+        # используем условное выражение одной строкой для проверки на None
+        self.sell_price_min = str(sell_price_min) if sell_price_min is not None else '------'
+        self.sell_price_min_date = sell_price_min_date if sell_price_min_date is not None else '------'
+        self.sell_price_max = str(sell_price_max) if sell_price_max is not None else '------'
+        self.sell_price_max_date = sell_price_max_date if sell_price_max_date is not None else '------'
+        self.buy_price_min = str(buy_price_min) if buy_price_min is not None else '------'
+        self.buy_price_min_date = buy_price_min_date if buy_price_min_date is not None else '------'
+        self.buy_price_max = str(buy_price_max) if buy_price_max is not None else '------'
+        self.buy_price_max_date = buy_price_max_date if buy_price_max_date is not None else '------'
 
     def AddItem(self, Add_list: list):
         Add_list.append(self)
-        
+
 
     def Item_in_listes(path: str):
         global Item_sort_list
+        # Очищаем список перед добавлением новых элементов
         Item_sort_list.clear()
 
-        with open(path) as opened_file:
-            datas = json.load(opened_file)
+        try:
+            # Открываем JSON файл и загружаем данные
+            with open(path, 'r') as opened_file:
+                datas = json.load(opened_file)
 
-            for i in range(len(datas['item_id'])):
-                Generated_item = Item(datas['item_id'][str(i)], 
-                            datas['city'][str(i)], 
-                            datas['sell_price_min'][str(i)], 
-                            datas['sell_price_min_date'][str(i)], 
-                            datas['sell_price_max'][str(i)], 
-                            datas['sell_price_max_date'][str(i)], 
-                            datas['buy_price_min'][str(i)], 
-                            datas['buy_price_min_date'][str(i)], 
-                            datas['buy_price_max'][str(i)], 
-                            datas['buy_price_max_date'][str(i)])
-                Generated_item.AddItem(Item_sort_list)
+                for i in range(len(datas['item_id'])):
+                    i = str(i)
+
+                    # Создаем экземпляр Item для каждого элемента в файле
+                    Generated_item = Item(datas['item_id'][i], 
+                                datas['city'][i], 
+                                datas['sell_price_min'][i], 
+                                datas['sell_price_min_date'][i], 
+                                datas['sell_price_max'][i], 
+                                datas['sell_price_max_date'][i], 
+                                datas['buy_price_min'][i], 
+                                datas['buy_price_min_date'][i], 
+                                datas['buy_price_max'][i], 
+                                datas['buy_price_max_date'][i])
+                    # Добавляем элемент в список
+                    Generated_item.AddItem(Item_sort_list)
+        
+        except (IOError, ValueError, KeyError) as element:
+            print(f'An error occured while reading the JSON file: {element}')
 
 
 
@@ -672,12 +685,39 @@ class Ui_MainWindow(object):
         Item.Item_in_listes('Prises.json')
         self.Add_item_in_QlistWidget()
        
+        self.Main_List.itemClicked.connect(self.Update_info)
+
+
+    def Update_info(self):
+        selected_item = self.Main_List.currentItem()  # получаем выбранный элемент из QListWidget
+        if selected_item is not None:  # если элемент был выбран
+            selected_name = str(selected_item.text())  # получаем текст выбранного элемента
+            
+            for item in Item_sort_list:
+                if item.item_id == selected_name:  # если id элемента соответствует выбранному элементу
+                    
+                    # для каждой группы QLabel и свойства элемента
+                    for label_group, item_property in [(self.Sell_prise_min_butt_group, item.sell_price_min), 
+                                                    (self.Sell_prise_min_date_butt_group, item.sell_price_min_date), 
+                                                    (self.Sell_prise_max_butt_group, item.sell_price_max),
+                                                    (self.Sell_prise_max_date_butt_group, item.sell_price_max_date),
+                                                    (self.Buy_prise_min_butt_group, item.buy_price_min),
+                                                    (self.Buy_prise_min_date_butt_group, item.buy_price_min_date),
+                                                    (self.Buy_prise_max_butt_group, item.buy_price_max),
+                                                    (self.Buy_prise_max_date_butt_group, item.buy_price_max_date)]:
+                        for label in label_group:  # для каждого QLabel в группе
+                            label.setText(item_property)  # устанавливаем соответствующее свойство элемента в текст QLabel
+
 
     def Add_item_in_QlistWidget(self):
+        added_items = set()  # создаем пустое множество, которое будем использовать для проверки на дубликаты
+        
+        for it in Item_sort_list:  # итерируемся по списку элементов, которые нужно добавить
+            if it.item_id not in added_items:  # если элемент не является дубликатом
+                
+                self.Main_List.addItem(it.item_id)  # добавляем элемент в QListWidget
+                added_items.add(it.item_id)  # добавляем элемент в множество добавленных элементов
 
-        for it in Item_sort_list:
-
-            self.Main_List.addItem(it.item_id)
 
 
     def Sorting(self):
@@ -721,19 +761,40 @@ class Ui_MainWindow(object):
         buy_price_max_dict = Sort_dict(buy_price_max_dict)
 
 
-    def setText(self, group_lable, dict: dict):
-        dict_item_id = list(dict.keys())
-        print(dict_item_id)
+    def Update_info(self):
+        # получаем выделенный элемент из списка
+        selected_item = self.Main_List.currentItem()
+        
+        # проверяем, что элемент есть
+        if selected_item:
+            # получаем текст выделенного элемента
+            selected_name = selected_item.text()
+            
+            # перебираем все товары из отсортированного списка Item_sort_list
+            for item in Item_sort_list:
+                # если нашли товар, у которого item_id совпадает с выбранным текстом, переходим к обновлению информации по нему
+                if item.item_id == selected_name:
+                    # определяем id города товара
+                    id = locations.index(item.city) + 1
+                    # обновляем информацию о ценах продажи и покупки для соответствующих кнопок в интерфейсе
+                    self.Sell_prise_min_butt_group[id].setText(str(item.sell_price_min))
+                    self.Sell_prise_min_date_butt_group[id].setText(item.sell_price_min_date)
+                    self.Sell_prise_max_butt_group[id].setText(str(item.sell_price_max))
+                    self.Sell_prise_max_date_butt_group[id].setText(item.sell_price_max_date)
+                    self.Buy_prise_min_butt_group[id].setText(str(item.buy_price_min))
+                    self.Buy_prise_min_date_butt_group[id].setText(item.buy_price_min_date)
+                    self.Buy_prise_max_butt_group[id].setText(str(item.buy_price_max))
+                    self.Buy_prise_max_date_butt_group[id].setText(item.buy_price_max_date)
 
-        for id in range(len(group_lable)):
-            group_lable[id].setText(str(dict[dict_item_id[id]]))
 
+    
 
+    # def setText(self, group_lable, dict: dict):
+    #     dict_item_id = list(dict.keys())
+    #     print(dict_item_id)
 
-
-
-
-
+    #     for id in range(len(group_lable)):
+    #         group_lable[id].setText(str(dict[dict_item_id[id]]))
 
 
 if __name__ == "__main__":
