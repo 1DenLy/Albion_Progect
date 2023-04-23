@@ -6,8 +6,8 @@ import webbrowser, pandas
 import Sort_Data, List_item
 
 
-qualities = 0
 
+qualities = 0
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -1740,7 +1740,10 @@ class Ui_MainWindow(object):
             Pr_list.to_excel("Prises.xlsx")
             Pr_list.to_json('Prises.json', date_format="iso", indent=4)
 
-            if self.radioButton.isChecked(): pass
+            if self.radioButton.isChecked(): 
+                start_data = Sort_Data.Ui_MainWindow()
+                start_data.show()
+                sys.exit(app.exec_())
 
     def exit(self):
         sys.exit()

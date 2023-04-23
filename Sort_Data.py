@@ -1,9 +1,10 @@
 
 import json
+from datetime import datetime
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QButtonGroup
-import webbrowser, pandas
+
 
 
 #import Main_Code, List_item
@@ -27,6 +28,12 @@ class Item():
         # устанавливаем значения атрибутов при создании экземпляра класса
         self.item_id = item_id
         self.city = city
+
+        # обрабатываем переменные с припиской "date"
+        sell_price_min_date = self.format_datetime(sell_price_min_date)
+        sell_price_max_date = self.format_datetime(sell_price_max_date)
+        buy_price_min_date = self.format_datetime(buy_price_min_date)
+        buy_price_max_date = self.format_datetime(buy_price_max_date)
         
         # используем условное выражение одной строкой для проверки на None
         self.sell_price_min = str(sell_price_min) if sell_price_min is not None else '------'
@@ -37,6 +44,32 @@ class Item():
         self.buy_price_min_date = buy_price_min_date if buy_price_min_date is not None else '------'
         self.buy_price_max = str(buy_price_max) if buy_price_max is not None else '------'
         self.buy_price_max_date = buy_price_max_date if buy_price_max_date is not None else '------'
+
+
+    def format_datetime(self, dt):
+        today = datetime.now()
+
+        if dt is not None:
+            # Преобразуем строку dt в объект datetime.datetime
+            dt = datetime.strptime(dt, '%Y-%m-%dT%H:%M:%S')
+
+            if dt.year == today.year:
+                
+                end = dt.strftime("%m-%dT%H:%M")
+            
+                if dt.month == today.month:
+
+                    end = dt.strftime("%dT%H:%M")
+
+                    if dt.day == today.day:
+
+                        end = dt.strftime("%H:%M")
+            else:
+                end = str(dt)
+        else:
+            end = None
+
+        return end
 
     def AddItem(self, Add_list: list):
         Add_list.append(self)
@@ -688,27 +721,6 @@ class Ui_MainWindow(object):
         self.Main_List.itemClicked.connect(self.Update_info)
 
 
-    def Update_info(self):
-        selected_item = self.Main_List.currentItem()  # получаем выбранный элемент из QListWidget
-        if selected_item is not None:  # если элемент был выбран
-            selected_name = str(selected_item.text())  # получаем текст выбранного элемента
-            
-            for item in Item_sort_list:
-                if item.item_id == selected_name:  # если id элемента соответствует выбранному элементу
-                    
-                    # для каждой группы QLabel и свойства элемента
-                    for label_group, item_property in [(self.Sell_prise_min_butt_group, item.sell_price_min), 
-                                                    (self.Sell_prise_min_date_butt_group, item.sell_price_min_date), 
-                                                    (self.Sell_prise_max_butt_group, item.sell_price_max),
-                                                    (self.Sell_prise_max_date_butt_group, item.sell_price_max_date),
-                                                    (self.Buy_prise_min_butt_group, item.buy_price_min),
-                                                    (self.Buy_prise_min_date_butt_group, item.buy_price_min_date),
-                                                    (self.Buy_prise_max_butt_group, item.buy_price_max),
-                                                    (self.Buy_prise_max_date_butt_group, item.buy_price_max_date)]:
-                        for label in label_group:  # для каждого QLabel в группе
-                            label.setText(item_property)  # устанавливаем соответствующее свойство элемента в текст QLabel
-
-
     def Add_item_in_QlistWidget(self):
         added_items = set()  # создаем пустое множество, которое будем использовать для проверки на дубликаты
         
@@ -717,7 +729,6 @@ class Ui_MainWindow(object):
                 
                 self.Main_List.addItem(it.item_id)  # добавляем элемент в QListWidget
                 added_items.add(it.item_id)  # добавляем элемент в множество добавленных элементов
-
 
 
     def Sorting(self):
@@ -787,7 +798,6 @@ class Ui_MainWindow(object):
                     self.Buy_prise_max_date_butt_group[id].setText(item.buy_price_max_date)
 
 
-    
 
     # def setText(self, group_lable, dict: dict):
     #     dict_item_id = list(dict.keys())
