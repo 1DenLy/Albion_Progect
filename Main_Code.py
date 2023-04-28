@@ -1,15 +1,23 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QButtonGroup
+from datetime import datetime
 
-import webbrowser, pandas
+import webbrowser, pandas, os
 
-import Sort_Data, List_item
+import List_item
+
+from Sort_Data import Ui_MainWindow_2
 
 
-
-qualities = 0
+qualities = 1
 
 class Ui_MainWindow(object):
+    def Open_Program(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = Ui_MainWindow_2()
+        self.ui.setupUi(self.window)
+        self.window.show()
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 895)
@@ -1380,156 +1388,41 @@ class Ui_MainWindow(object):
 
         self.All_buttons_Clotch_Armor = QButtonGroup()
         self.All_buttons_Clotch_Armor.setExclusive(False)
-        
-        self.All_buttons_Clotch_Armor.addButton(self.checkBox1, 0)
-        self.All_buttons_Clotch_Armor.addButton(self.checkBox2, 1)
-        self.All_buttons_Clotch_Armor.addButton(self.checkBox3, 2)
-        self.All_buttons_Clotch_Armor.addButton(self.checkBox4, 3)
-        self.All_buttons_Clotch_Armor.addButton(self.checkBox5, 4)
-        self.All_buttons_Clotch_Armor.addButton(self.checkBox6, 5)
-        self.All_buttons_Clotch_Armor.addButton(self.checkBox7, 6)
-        self.All_buttons_Clotch_Armor.addButton(self.checkBox8, 7)
-        self.All_buttons_Clotch_Armor.addButton(self.checkBox9, 8)
 
-        self.All_buttons_Clotch_Armor.addButton(self.checkBox10, 9)
-        self.All_buttons_Clotch_Armor.addButton(self.checkBox11, 10)
-        self.All_buttons_Clotch_Armor.addButton(self.checkBox12, 11)
-        self.All_buttons_Clotch_Armor.addButton(self.checkBox13, 12)
-        self.All_buttons_Clotch_Armor.addButton(self.checkBox14, 13)
-        self.All_buttons_Clotch_Armor.addButton(self.checkBox15, 14)
-        self.All_buttons_Clotch_Armor.addButton(self.checkBox16, 15)
-        self.All_buttons_Clotch_Armor.addButton(self.checkBox17, 16)
-        self.All_buttons_Clotch_Armor.addButton(self.checkBox18, 17)
-
-        self.All_buttons_Clotch_Armor.addButton(self.checkBox19, 18)
-        self.All_buttons_Clotch_Armor.addButton(self.checkBox20, 19)
-        self.All_buttons_Clotch_Armor.addButton(self.checkBox21, 20)
-        self.All_buttons_Clotch_Armor.addButton(self.checkBox22, 21)
-        self.All_buttons_Clotch_Armor.addButton(self.checkBox23, 22)
-        self.All_buttons_Clotch_Armor.addButton(self.checkBox24, 23)
-        self.All_buttons_Clotch_Armor.addButton(self.checkBox25, 24)
-        self.All_buttons_Clotch_Armor.addButton(self.checkBox26, 25)
-        self.All_buttons_Clotch_Armor.addButton(self.checkBox27, 26)
-
-        self.All_buttons_Leather_Armor = QButtonGroup()
+        self.All_buttons_Leather_Armor = QButtonGroup()     
         self.All_buttons_Leather_Armor.setExclusive(False)
-
-        self.All_buttons_Leather_Armor.addButton(self.checkBox28, 0)
-        self.All_buttons_Leather_Armor.addButton(self.checkBox29, 1)
-        self.All_buttons_Leather_Armor.addButton(self.checkBox30, 2)
-        self.All_buttons_Leather_Armor.addButton(self.checkBox31, 3)
-        self.All_buttons_Leather_Armor.addButton(self.checkBox32, 4)
-        self.All_buttons_Leather_Armor.addButton(self.checkBox33, 5)
-        self.All_buttons_Leather_Armor.addButton(self.checkBox34, 6)
-        self.All_buttons_Leather_Armor.addButton(self.checkBox35, 7)
-        self.All_buttons_Leather_Armor.addButton(self.checkBox36, 8)
-
-        self.All_buttons_Leather_Armor.addButton(self.checkBox37, 9)
-        self.All_buttons_Leather_Armor.addButton(self.checkBox38, 10)
-        self.All_buttons_Leather_Armor.addButton(self.checkBox39, 11)
-        self.All_buttons_Leather_Armor.addButton(self.checkBox40, 12)
-        self.All_buttons_Leather_Armor.addButton(self.checkBox41, 13)
-        self.All_buttons_Leather_Armor.addButton(self.checkBox42, 14)
-        self.All_buttons_Leather_Armor.addButton(self.checkBox43, 15)
-        self.All_buttons_Leather_Armor.addButton(self.checkBox44, 16)
-        self.All_buttons_Leather_Armor.addButton(self.checkBox45, 17)
-
-        self.All_buttons_Leather_Armor.addButton(self.checkBox46, 18)
-        self.All_buttons_Leather_Armor.addButton(self.checkBox47, 19)
-        self.All_buttons_Leather_Armor.addButton(self.checkBox48, 20)
-        self.All_buttons_Leather_Armor.addButton(self.checkBox49, 21)
-        self.All_buttons_Leather_Armor.addButton(self.checkBox50, 22)
-        self.All_buttons_Leather_Armor.addButton(self.checkBox51, 23)
-        self.All_buttons_Leather_Armor.addButton(self.checkBox52, 24)
-        self.All_buttons_Leather_Armor.addButton(self.checkBox53, 25)
-        self.All_buttons_Leather_Armor.addButton(self.checkBox54, 26)
 
         self.All_buttons_Plate_Armor = QButtonGroup()
         self.All_buttons_Plate_Armor.setExclusive(False)
 
-        self.All_buttons_Plate_Armor.addButton(self.checkBox55, 0)
-        self.All_buttons_Plate_Armor.addButton(self.checkBox56, 1)
-        self.All_buttons_Plate_Armor.addButton(self.checkBox57, 2)
-        self.All_buttons_Plate_Armor.addButton(self.checkBox58, 3)
-        self.All_buttons_Plate_Armor.addButton(self.checkBox59, 4)
-        self.All_buttons_Plate_Armor.addButton(self.checkBox60, 5)
-        self.All_buttons_Plate_Armor.addButton(self.checkBox61, 6)
-        self.All_buttons_Plate_Armor.addButton(self.checkBox62, 7)
-        self.All_buttons_Plate_Armor.addButton(self.checkBox63, 8)
-
-        self.All_buttons_Plate_Armor.addButton(self.checkBox64, 9)
-        self.All_buttons_Plate_Armor.addButton(self.checkBox65, 10)
-        self.All_buttons_Plate_Armor.addButton(self.checkBox66, 11)
-        self.All_buttons_Plate_Armor.addButton(self.checkBox67, 12)
-        self.All_buttons_Plate_Armor.addButton(self.checkBox68, 13)
-        self.All_buttons_Plate_Armor.addButton(self.checkBox69, 14)
-        self.All_buttons_Plate_Armor.addButton(self.checkBox70, 15)
-        self.All_buttons_Plate_Armor.addButton(self.checkBox71, 16)
-        self.All_buttons_Plate_Armor.addButton(self.checkBox72, 17)
-
-        self.All_buttons_Plate_Armor.addButton(self.checkBox73, 18)
-        self.All_buttons_Plate_Armor.addButton(self.checkBox74, 19)
-        self.All_buttons_Plate_Armor.addButton(self.checkBox75, 20)
-        self.All_buttons_Plate_Armor.addButton(self.checkBox76, 21)
-        self.All_buttons_Plate_Armor.addButton(self.checkBox77, 22)
-        self.All_buttons_Plate_Armor.addButton(self.checkBox78, 23)
-        self.All_buttons_Plate_Armor.addButton(self.checkBox79, 24)
-        self.All_buttons_Plate_Armor.addButton(self.checkBox80, 25)
-        self.All_buttons_Plate_Armor.addButton(self.checkBox81, 26)
-        
-
         self.All_tier_group = QButtonGroup()
         self.All_tier_group.setExclusive(False)
-        self.All_tier_group.addButton(self.checkBox_Tier_4, 0)
-        self.All_tier_group.addButton(self.checkBox_Tier_5, 1)
-        self.All_tier_group.addButton(self.checkBox_Tier_6, 2)
-        self.All_tier_group.addButton(self.checkBox_Tier_7, 3)
-        self.All_tier_group.addButton(self.checkBox_Tier_8, 4)
 
         self.All_rarity_group = QButtonGroup()
         self.All_rarity_group.setExclusive(False)
-        self.All_rarity_group.addButton(self.checkBox_Chair_0, 0)
-        self.All_rarity_group.addButton(self.checkBox_Chair_1, 1)
-        self.All_rarity_group.addButton(self.checkBox_Chair_2, 2)
-        self.All_rarity_group.addButton(self.checkBox_Chair_3, 3)
-        self.All_rarity_group.addButton(self.checkBox_Chair_4, 4)
 
         self.All_qualities_group = QButtonGroup()
-        self.All_qualities_group.addButton(self.radioButton_1, 1)
-        self.All_qualities_group.addButton(self.radioButton_2, 2)
-        self.All_qualities_group.addButton(self.radioButton_3, 3)
-        self.All_qualities_group.addButton(self.radioButton_4, 4)
-        self.All_qualities_group.addButton(self.radioButton_5, 5)
 
         self.All_Citys_group = QButtonGroup()
         self.All_Citys_group.setExclusive(False)
-        self.All_Citys_group.addButton(self.checkBox_Caerleon, 0)
-        self.All_Citys_group.addButton(self.checkBox_Fort_Stearling, 1)
-        self.All_Citys_group.addButton(self.checkBox_Martlock, 2)
-        self.All_Citys_group.addButton(self.checkBox_Thetford, 3)
-        self.All_Citys_group.addButton(self.checkBox_Lymhurst, 4)
-        self.All_Citys_group.addButton(self.checkBox_Bridgewatch, 5)
 
-        self.Lable_Group_1 = list()
-        self.Lable_Group_1.append(self.label_1)
-        self.Lable_Group_1.append(self.label_3)
-        self.Lable_Group_1.append(self.label_5)
-        self.Lable_Group_1.append(self.label_7)
-        self.Lable_Group_1.append(self.label_9)
-        self.Lable_Group_1.append(self.label_11)
-        self.Lable_Group_1.append(self.label_13)
-        self.Lable_Group_1.append(self.label_15)
-        
-        self.Lable_Group_2 = list()
-        self.Lable_Group_2.append(self.label_2)
-        self.Lable_Group_2.append(self.label_4)
-        self.Lable_Group_2.append(self.label_6)
-        self.Lable_Group_2.append(self.label_8)
-        self.Lable_Group_1.append(self.label_10)
-        self.Lable_Group_1.append(self.label_12)
-        self.Lable_Group_1.append(self.label_14)
-        self.Lable_Group_1.append(self.label_16)
-        
+        for i in range(1, 28):
+            self.All_buttons_Clotch_Armor.addButton(getattr(self, f"checkBox{i}"), i - 1)
+            self.All_buttons_Leather_Armor.addButton(getattr(self, f"checkBox{i + 27}"), i - 1)
+            self.All_buttons_Plate_Armor.addButton(getattr(self, f"checkBox{i + 54}"), i - 1)
+
+        for i, checkbox in enumerate([self.checkBox_Tier_4, self.checkBox_Tier_5, self.checkBox_Tier_6, self.checkBox_Tier_7, self.checkBox_Tier_8]):
+            self.All_tier_group.addButton(checkbox, i)
+
+        for i, checkbox in enumerate([self.checkBox_Chair_0, self.checkBox_Chair_1, self.checkBox_Chair_2, self.checkBox_Chair_3, self.checkBox_Chair_4]):
+            self.All_rarity_group.addButton(checkbox, i)
+
+        for i, radio in enumerate([self.radioButton_1, self.radioButton_2, self.radioButton_3, self.radioButton_4, self.radioButton_5]):
+            self.All_qualities_group.addButton(radio, i + 1)
+
+        for i, checkbox in enumerate([self.checkBox_Caerleon, self.checkBox_Fort_Stearling, self.checkBox_Martlock, self.checkBox_Thetford, self.checkBox_Lymhurst, self.checkBox_Bridgewatch]):
+            self.All_Citys_group.addButton(checkbox, i)
+
 
         self.button_funckshens()
         
@@ -1607,15 +1500,15 @@ class Ui_MainWindow(object):
         self.main_button(self.All_buttons_Leather_Armor, List_item.Leather_Armor)
         self.main_button(self.All_buttons_Plate_Armor, List_item.Plate_Armor)
         
-        self.All_tier_group.buttonClicked[int].connect(self.tier_add)
-        self.All_rarity_group.buttonClicked[int].connect(self.Rarity_add)
-        self.All_qualities_group.buttonClicked[int].connect(self.Qualities_changing)
-        self.All_Citys_group.buttonClicked[int].connect(self.City_add)
+        self.All_tier_group.buttonClicked[int].connect(self.__tier_add)
+        self.All_rarity_group.buttonClicked[int].connect(self.__Rarity_add)
+        self.All_qualities_group.buttonClicked[int].connect(self.__Qualities_changing)
+        self.All_Citys_group.buttonClicked[int].connect(self.__City_add)
 
         self.pushButton_Start.clicked.connect(lambda: self.stats())
         self.pushButton_Exit.clicked.connect(lambda: self.exit())
 
-    
+
     def main_button(self, group_button: list, item_list: list):
         def check_butt(butt_id):
             #Получение id кнопки
@@ -1632,7 +1525,7 @@ class Ui_MainWindow(object):
         group_button.buttonClicked[int].connect(check_butt)
 
 
-    def end_list(self):
+    def __end_list(self):
         global Item_list_f, Item_list_s
         Item_list_s.clear()
         
@@ -1643,33 +1536,31 @@ class Ui_MainWindow(object):
                     Item_list_s.append( tier + item + rarity )
 
 
-    def tier_add(self, button_id: int):
+    def __tier_add(self, button_id: int):
 
         for btn in self.All_tier_group.buttons():
             if btn is self.All_tier_group.button(button_id):
 
                 if Tiers[button_id] in Tier_list:
                     Tier_list.remove(Tiers[button_id])
-                    Tier_list.sort()
                 else:
                     Tier_list.append(Tiers[button_id])
-                    Tier_list.sort()
+                Tier_list.sort()
 
 
-    def Rarity_add(self, button_id: int):
+    def __Rarity_add(self, button_id: int):
 
         for btn in self.All_rarity_group.buttons():
             if btn is self.All_rarity_group.button(button_id):
 
                 if Rarytyes[button_id] in Rarity_list:
                     Rarity_list.remove(Rarytyes[button_id])
-                    Rarity_list.sort()
                 else:
                     Rarity_list.append(Rarytyes[button_id])
-                    Rarity_list.sort()
+                Rarity_list.sort()
 
 
-    def City_add(self, button_id: int):
+    def __City_add(self, button_id: int):
 
         for btn in self.All_Citys_group.buttons():
             if btn is self.All_Citys_group.button(button_id):
@@ -1680,70 +1571,52 @@ class Ui_MainWindow(object):
                 else:
                     locations_list.append(locations[button_id])
                     locations_list.sort()
-        
 
-    def Qualities_changing(self, button_id: int):
+
+    def __Qualities_changing(self, button_id: int):
         global qualities
         qualities = button_id
 
 
-    def Info(self, num_lable):
-                    
-        for item in Item_list_s:
-
-            if num_lable == 1:
-                if self.comboBox.currentText() == item.item_id:
-                    if self.Box_city_1.currentText() == item.city:
-                        self.label_1.setText(item.sell_price_min)
-                        self.label_3.setText(item.sell_price_min_date)
-                        self.label_5.setText(item.sell_price_max)
-                        self.label_7.setText(item.sell_price_min_date)
-                        self.label_9.setText(item.buy_price_min)
-                        self.label_11.setText(item.buy_price_min_date)
-                        self.label_13.setText(item.buy_price_max)
-                        self.label_15.setText(item.buy_price_min_date)
-
-            elif num_lable == 2:
-                if self.comboBox.currentText() == item.item_id:
-                    if self.Box_city_2.currentText() == item.city:
-                        self.label_2.setText(item.sell_price_min)
-                        self.label_4.setText(item.sell_price_min_date)
-                        self.label_6.setText(item.sell_price_max)
-                        self.label_8.setText(item.sell_price_min_date)
-                        self.label_10.setText(item.buy_price_min)
-                        self.label_12.setText(item.buy_price_min_date)
-                        self.label_14.setText(item.buy_price_max)
-                        self.label_16.setText(item.buy_price_min_date)
+    def Save_Json_From_Url(self, url, parse_date_column, pretty_print=False):
+        try:
+            df = pandas.read_html(url, header=0, parse_dates=[parse_date_column])
+        except Exception as e:
+            print(f"Failed to read data from {url}: {e}")
+            
+        current_time = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
         
-            elif num_lable == 3:
-                self.Info(1)
-                self.Info(2)
+        file_name = f"Prices_{current_time}.json"
+        
+        if os.path.isfile(file_name):   # Проверяем, существует ли уже файл
+            print(f"File {file_name} already exists, will not overwrite")
+            return
+        
+        try:    # Записываем данные в формате JSON в файл с указанным именем
+            df[0].to_json(file_name, date_format="iso", indent=4 if pretty_print else None)
+            print(f"Data saved to {file_name}")
+        except Exception as e:  # Выводим сообщение об ошибке, если сохранение не удалось
+            print(f"Failed to save data to {file_name}: {e}")
 
 
     def stats(self):
-        self.end_list()
-        if len(Tier_list) > 0 and len(Rarity_list) > 0 and len(locations_list) > 0 and qualities > 0:
-            URL = stock + ','. join(Item_list_s) + location + ','. join(locations_list) + qualities_url + str(qualities)
+        global locations_list
 
-            self.comboBox.clear()
-            self.Box_city_1.clear()
-            self.Box_city_2.clear()
-            for item in Item_list_s: self.comboBox.addItem(item)
-            for city in locations_list: 
-                if city == 'Fortsterling': city = 'Fort Sterling'
-                self.Box_city_1.addItem(city), self.Box_city_2.addItem(city)
+        if self.radioButton.isChecked() and len(Tier_list) == 0 and len(Rarity_list) == 0 and len(locations_list) == 0: 
+            self.Open_Program() 
+        else:
 
-            if self.radioButton_6.isChecked(): webbrowser.open_new(URL)
+            self.__end_list()
             
-            
-            Pr_list, = pandas.read_html(URL, header=0, parse_dates=['item_id'])
-            Pr_list.to_excel("Prises.xlsx")
-            Pr_list.to_json('Prises.json', date_format="iso", indent=4)
+            if all(len(lst) > 0 for lst in [Item_list_s, Tier_list, Rarity_list, locations_list]):
+                
+                URL = stock + ','. join(Item_list_s) + location + ','. join(locations_list) + qualities_url + str(qualities)
 
-            if self.radioButton.isChecked(): 
-                start_data = Sort_Data.Ui_MainWindow()
-                start_data.show()
-                sys.exit(app.exec_())
+                if self.radioButton_6.isChecked(): webbrowser.open_new(URL)
+
+                self.Save_Json_From_Url(URL, 'item_id', True)
+
+                if self.radioButton.isChecked(): self.Open_Program()
 
     def exit(self):
         sys.exit()
@@ -1767,6 +1640,7 @@ Rarity_list = []
 
 Tiers = ['T4_', 'T5_', 'T6_', 'T7_', 'T8_']
 Rarytyes = ['', '@1', '@2', '@3', '@4']
+
 
 
 if __name__ == "__main__":

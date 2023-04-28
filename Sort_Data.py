@@ -1,13 +1,9 @@
 
 import json
-from datetime import datetime
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QButtonGroup
 
-
-
-#import Main_Code, List_item
+from datetime import datetime
 
 
 Item_sort_list = []
@@ -20,33 +16,36 @@ locations = ['Caerleon','Fort Sterling','Lymhurst','Thetford','Martlock','Bridge
 
 class Item():
     def __init__(self, item_id, city, 
-                 sell_price_min=None, sell_price_min_date=None, 
-                 sell_price_max=None, sell_price_max_date=None, 
-                 buy_price_min=None, buy_price_min_date=None, 
-                 buy_price_max=None, buy_price_max_date=None):
+                sell_price_min=None, sell_price_min_date=None, 
+                sell_price_max=None, sell_price_max_date=None, 
+                buy_price_min=None, buy_price_min_date=None, 
+                buy_price_max=None, buy_price_max_date=None):
         
         # устанавливаем значения атрибутов при создании экземпляра класса
         self.item_id = item_id
         self.city = city
 
         # обрабатываем переменные с припиской "date"
-        sell_price_min_date = self.format_datetime(sell_price_min_date)
-        sell_price_max_date = self.format_datetime(sell_price_max_date)
-        buy_price_min_date = self.format_datetime(buy_price_min_date)
-        buy_price_max_date = self.format_datetime(buy_price_max_date)
+        sell_price_min_date = self.__format_datetime(sell_price_min_date)
+        sell_price_max_date = self.__format_datetime(sell_price_max_date)
+        buy_price_min_date = self.__format_datetime(buy_price_min_date)
+        buy_price_max_date = self.__format_datetime(buy_price_max_date)
         
         # используем условное выражение одной строкой для проверки на None
         self.sell_price_min = str(sell_price_min) if sell_price_min is not None else '------'
         self.sell_price_min_date = sell_price_min_date if sell_price_min_date is not None else '------'
+        
         self.sell_price_max = str(sell_price_max) if sell_price_max is not None else '------'
         self.sell_price_max_date = sell_price_max_date if sell_price_max_date is not None else '------'
+        
         self.buy_price_min = str(buy_price_min) if buy_price_min is not None else '------'
         self.buy_price_min_date = buy_price_min_date if buy_price_min_date is not None else '------'
+        
         self.buy_price_max = str(buy_price_max) if buy_price_max is not None else '------'
         self.buy_price_max_date = buy_price_max_date if buy_price_max_date is not None else '------'
 
 
-    def format_datetime(self, dt):
+    def __format_datetime(self, dt):
         today = datetime.now()
 
         if dt is not None:
@@ -54,15 +53,12 @@ class Item():
             dt = datetime.strptime(dt, '%Y-%m-%dT%H:%M:%S')
 
             if dt.year == today.year:
-                
                 end = dt.strftime("%m-%dT%H:%M")
-            
-                if dt.month == today.month:
 
+                if dt.month == today.month:
                     end = dt.strftime("%dT%H:%M")
 
                     if dt.day == today.day:
-
                         end = dt.strftime("%H:%M")
             else:
                 end = str(dt)
@@ -107,7 +103,7 @@ class Item():
 
 
 
-class Ui_MainWindow(object):
+class Ui_MainWindow_2(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1100, 650)
@@ -717,7 +713,7 @@ class Ui_MainWindow(object):
         
         Item.Item_in_listes('Prises.json')
         self.Add_item_in_QlistWidget()
-       
+
         self.Main_List.itemClicked.connect(self.Update_info)
 
 
@@ -799,19 +795,11 @@ class Ui_MainWindow(object):
 
 
 
-    # def setText(self, group_lable, dict: dict):
-    #     dict_item_id = list(dict.keys())
-    #     print(dict_item_id)
-
-    #     for id in range(len(group_lable)):
-    #         group_lable[id].setText(str(dict[dict_item_id[id]]))
-
-
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
+    ui = Ui_MainWindow_2()
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
