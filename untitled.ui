@@ -18,9 +18,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
+      <y>40</y>
       <width>230</width>
-      <height>480</height>
+      <height>350</height>
      </rect>
     </property>
    </widget>
@@ -28,42 +28,71 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>500</y>
+      <y>385</y>
       <width>230</width>
-      <height>140</height>
+      <height>145</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_2">
-     <item row="1" column="2">
-      <widget class="QComboBox" name="comboBox_Quality_S">
+     <item row="2" column="0" alignment="Qt::AlignRight">
+      <widget class="QRadioButton" name="radioButtonArmo">
        <property name="font">
         <font>
          <pointsize>10</pointsize>
         </font>
        </property>
+       <property name="text">
+        <string>Броня</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QRadioButton" name="radioButton_Thinks">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Шмотки</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2" alignment="Qt::AlignLeft">
+      <widget class="QRadioButton" name="radioButton_Resurses">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Ресурсы</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0" colspan="3">
+      <widget class="QComboBox" name="comboBox_S">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="cursor">
+        <cursorShape>SizeVerCursor</cursorShape>
+       </property>
        <item>
         <property name="text">
-         <string>Обычн</string>
+         <string>Стандарт</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>Хорош</string>
+         <string>Разница цен &gt;</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>Выдающ</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Отличн</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Шедевр</string>
+         <string>Разница цен &lt;</string>
         </property>
        </item>
       </widget>
@@ -78,40 +107,6 @@
        <property name="text">
         <string>Фильтр/Сортировка</string>
        </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QComboBox" name="comboBox_Tier_S">
-       <property name="font">
-        <font>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <item>
-        <property name="text">
-         <string>4</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>5</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>6</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>7</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>8</string>
-        </property>
-       </item>
       </widget>
      </item>
      <item row="1" column="1">
@@ -148,65 +143,84 @@
        </item>
       </widget>
      </item>
-     <item row="2" column="0" alignment="Qt::AlignRight">
-      <widget class="QRadioButton" name="radioButtonArmo">
+     <item row="1" column="0">
+      <widget class="QComboBox" name="comboBox_Tier_S">
        <property name="font">
         <font>
          <pointsize>10</pointsize>
         </font>
-       </property>
-       <property name="text">
-        <string>Броня</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="2" alignment="Qt::AlignLeft">
-      <widget class="QRadioButton" name="radioButton_Resurses">
-       <property name="font">
-        <font>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Ресурсы</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QRadioButton" name="radioButton_Thinks">
-       <property name="font">
-        <font>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Шмотки</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0" colspan="3">
-      <widget class="QComboBox" name="comboBox_S">
-       <property name="font">
-        <font>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="cursor">
-        <cursorShape>SizeVerCursor</cursorShape>
        </property>
        <item>
         <property name="text">
-         <string>Стандарт</string>
+         <string>4</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>Разница цен &gt;</string>
+         <string>5</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>Разница цен &lt;</string>
+         <string>6</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>7</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>8</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="4" column="0" colspan="3" alignment="Qt::AlignHCenter">
+      <widget class="QLabel" name="label">
+       <property name="font">
+        <font>
+         <pointsize>14</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Шаблоны Обновления</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QComboBox" name="comboBox_Quality_S">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <item>
+        <property name="text">
+         <string>Обычн</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Хорош</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Выдающ</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Отличн</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Шедевр</string>
         </property>
        </item>
       </widget>
@@ -1290,9 +1304,86 @@
      </item>
     </layout>
    </widget>
+   <widget class="QComboBox" name="comboBox">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>230</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QFrame" name="gridFrame">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>530</y>
+      <width>230</width>
+      <height>110</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>8</pointsize>
+     </font>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_3">
+     <item row="0" column="0">
+      <widget class="QPushButton" name="pushButton">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Броня Б/А</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QPushButton" name="pushButton_2">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Снаряжение</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QPushButton" name="pushButton_3">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Ресурсы</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QPushButton" name="pushButton_4">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Выбраный Файл</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
    <zorder>verticalFrame</zorder>
    <zorder>Main_List</zorder>
    <zorder>gridFrame</zorder>
+   <zorder>gridFrame</zorder>
+   <zorder>comboBox</zorder>
    <zorder>gridFrame</zorder>
   </widget>
  </widget>

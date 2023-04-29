@@ -1,5 +1,5 @@
 
-import json
+import os, json
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
@@ -12,9 +12,10 @@ sell_price_min_dict = {}
 sell_price_max_dict = {}
 buy_price_min_dict = {}
 buy_price_max_dict = {}
-locations = ['Caerleon','Fort Sterling','Lymhurst','Thetford','Martlock','Bridgewatch']
+locations = ['Black Market','Caerleon','Fort Sterling','Lymhurst','Thetford','Martlock','Bridgewatch']
 
 class Item():
+    global Find_All_Filename
     def __init__(self, item_id, city, 
                 sell_price_min=None, sell_price_min_date=None, 
                 sell_price_max=None, sell_price_max_date=None, 
@@ -67,18 +68,28 @@ class Item():
 
         return end
 
-    def AddItem(self, Add_list: list):
+
+    def __AddItem(self, Add_list: list):
         Add_list.append(self)
 
 
-    def Item_in_listes(path: str):
+    def Find_All_Filename(folder_path: str):
+        file_names = [f for f in os.listdir(folder_path) if f.endswith('.json')]
+        return file_names
+
+
+    def Item_in_listes(self, path: str, taken_name: str):
         global Item_sort_list
         # Очищаем список перед добавлением новых элементов
         Item_sort_list.clear()
+        
+        for file in Find_All_Filename(path):
+            if file == taken_name:
+                file_n = path + '/' + file
 
         try:
             # Открываем JSON файл и загружаем данные
-            with open(path, 'r') as opened_file:
+            with open(file_n, 'r') as opened_file:
                 datas = json.load(opened_file)
 
                 for i in range(len(datas['item_id'])):
@@ -96,7 +107,7 @@ class Item():
                                 datas['buy_price_max'][i], 
                                 datas['buy_price_max_date'][i])
                     # Добавляем элемент в список
-                    Generated_item.AddItem(Item_sort_list)
+                    Generated_item.__AddItem(Item_sort_list)
         
         except (IOError, ValueError, KeyError) as element:
             print(f'An error occured while reading the JSON file: {element}')
@@ -110,41 +121,47 @@ class Ui_MainWindow_2(object):
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.Main_List = QtWidgets.QListWidget(self.centralwidget)
-        self.Main_List.setGeometry(QtCore.QRect(10, 10, 230, 480))
+        self.Main_List.setGeometry(QtCore.QRect(10, 40, 230, 350))
         self.Main_List.setObjectName("Main_List")
         self.gridFrame = QtWidgets.QFrame(self.centralwidget)
-        self.gridFrame.setGeometry(QtCore.QRect(10, 500, 230, 140))
+        self.gridFrame.setGeometry(QtCore.QRect(10, 385, 230, 145))
         self.gridFrame.setObjectName("gridFrame")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.gridFrame)
         self.gridLayout_2.setObjectName("gridLayout_2")
-        self.comboBox_Quality_S = QtWidgets.QComboBox(self.gridFrame)
+        self.radioButtonArmo = QtWidgets.QRadioButton(self.gridFrame)
         font = QtGui.QFont()
         font.setPointSize(10)
-        self.comboBox_Quality_S.setFont(font)
-        self.comboBox_Quality_S.setObjectName("comboBox_Quality_S")
-        self.comboBox_Quality_S.addItem("")
-        self.comboBox_Quality_S.addItem("")
-        self.comboBox_Quality_S.addItem("")
-        self.comboBox_Quality_S.addItem("")
-        self.comboBox_Quality_S.addItem("")
-        self.gridLayout_2.addWidget(self.comboBox_Quality_S, 1, 2, 1, 1)
+        self.radioButtonArmo.setFont(font)
+        self.radioButtonArmo.setObjectName("radioButtonArmo")
+        self.gridLayout_2.addWidget(self.radioButtonArmo, 2, 0, 1, 1, QtCore.Qt.AlignRight)
+        self.radioButton_Thinks = QtWidgets.QRadioButton(self.gridFrame)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.radioButton_Thinks.setFont(font)
+        self.radioButton_Thinks.setObjectName("radioButton_Thinks")
+        self.gridLayout_2.addWidget(self.radioButton_Thinks, 2, 1, 1, 1)
+        self.radioButton_Resurses = QtWidgets.QRadioButton(self.gridFrame)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.radioButton_Resurses.setFont(font)
+        self.radioButton_Resurses.setObjectName("radioButton_Resurses")
+        self.gridLayout_2.addWidget(self.radioButton_Resurses, 2, 2, 1, 1, QtCore.Qt.AlignLeft)
+        self.comboBox_S = QtWidgets.QComboBox(self.gridFrame)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.comboBox_S.setFont(font)
+        self.comboBox_S.setCursor(QtGui.QCursor(QtCore.Qt.SizeVerCursor))
+        self.comboBox_S.setObjectName("comboBox_S")
+        self.comboBox_S.addItem("")
+        self.comboBox_S.addItem("")
+        self.comboBox_S.addItem("")
+        self.gridLayout_2.addWidget(self.comboBox_S, 3, 0, 1, 3)
         self.Text_lable = QtWidgets.QLabel(self.gridFrame)
         font = QtGui.QFont()
         font.setPointSize(14)
         self.Text_lable.setFont(font)
         self.Text_lable.setObjectName("Text_lable")
         self.gridLayout_2.addWidget(self.Text_lable, 0, 0, 1, 3, QtCore.Qt.AlignHCenter)
-        self.comboBox_Tier_S = QtWidgets.QComboBox(self.gridFrame)
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.comboBox_Tier_S.setFont(font)
-        self.comboBox_Tier_S.setObjectName("comboBox_Tier_S")
-        self.comboBox_Tier_S.addItem("")
-        self.comboBox_Tier_S.addItem("")
-        self.comboBox_Tier_S.addItem("")
-        self.comboBox_Tier_S.addItem("")
-        self.comboBox_Tier_S.addItem("")
-        self.gridLayout_2.addWidget(self.comboBox_Tier_S, 1, 0, 1, 1)
         self.comboBox_Rarity_S = QtWidgets.QComboBox(self.gridFrame)
         font = QtGui.QFont()
         font.setPointSize(10)
@@ -156,34 +173,36 @@ class Ui_MainWindow_2(object):
         self.comboBox_Rarity_S.addItem("")
         self.comboBox_Rarity_S.addItem("")
         self.gridLayout_2.addWidget(self.comboBox_Rarity_S, 1, 1, 1, 1)
-        self.radioButtonArmo = QtWidgets.QRadioButton(self.gridFrame)
+        self.comboBox_Tier_S = QtWidgets.QComboBox(self.gridFrame)
         font = QtGui.QFont()
         font.setPointSize(10)
-        self.radioButtonArmo.setFont(font)
-        self.radioButtonArmo.setObjectName("radioButtonArmo")
-        self.gridLayout_2.addWidget(self.radioButtonArmo, 2, 0, 1, 1, QtCore.Qt.AlignRight)
-        self.radioButton_Resurses = QtWidgets.QRadioButton(self.gridFrame)
+        self.comboBox_Tier_S.setFont(font)
+        self.comboBox_Tier_S.setObjectName("comboBox_Tier_S")
+        self.comboBox_Tier_S.addItem("")
+        self.comboBox_Tier_S.addItem("")
+        self.comboBox_Tier_S.addItem("")
+        self.comboBox_Tier_S.addItem("")
+        self.comboBox_Tier_S.addItem("")
+        self.gridLayout_2.addWidget(self.comboBox_Tier_S, 1, 0, 1, 1)
+        self.label = QtWidgets.QLabel(self.gridFrame)
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label.setFont(font)
+        self.label.setObjectName("label")
+        self.gridLayout_2.addWidget(self.label, 4, 0, 1, 3, QtCore.Qt.AlignHCenter)
+        self.comboBox_Quality_S = QtWidgets.QComboBox(self.gridFrame)
         font = QtGui.QFont()
         font.setPointSize(10)
-        self.radioButton_Resurses.setFont(font)
-        self.radioButton_Resurses.setObjectName("radioButton_Resurses")
-        self.gridLayout_2.addWidget(self.radioButton_Resurses, 2, 2, 1, 1, QtCore.Qt.AlignLeft)
-        self.radioButton_Thinks = QtWidgets.QRadioButton(self.gridFrame)
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.radioButton_Thinks.setFont(font)
-        self.radioButton_Thinks.setObjectName("radioButton_Thinks")
-        self.gridLayout_2.addWidget(self.radioButton_Thinks, 2, 1, 1, 1)
-        self.comboBox_S = QtWidgets.QComboBox(self.gridFrame)
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.comboBox_S.setFont(font)
-        self.comboBox_S.setCursor(QtGui.QCursor(QtCore.Qt.SizeVerCursor))
-        self.comboBox_S.setObjectName("comboBox_S")
-        self.comboBox_S.addItem("")
-        self.comboBox_S.addItem("")
-        self.comboBox_S.addItem("")
-        self.gridLayout_2.addWidget(self.comboBox_S, 3, 0, 1, 3)
+        self.comboBox_Quality_S.setFont(font)
+        self.comboBox_Quality_S.setObjectName("comboBox_Quality_S")
+        self.comboBox_Quality_S.addItem("")
+        self.comboBox_Quality_S.addItem("")
+        self.comboBox_Quality_S.addItem("")
+        self.comboBox_Quality_S.addItem("")
+        self.comboBox_Quality_S.addItem("")
+        self.gridLayout_2.addWidget(self.comboBox_Quality_S, 1, 2, 1, 1)
         self.verticalFrame = QtWidgets.QFrame(self.centralwidget)
         self.verticalFrame.setGeometry(QtCore.QRect(250, 10, 840, 630))
         self.verticalFrame.setObjectName("verticalFrame")
@@ -588,9 +607,46 @@ class Ui_MainWindow_2(object):
         self.label_56.setMinimumSize(QtCore.QSize(0, 0))
         self.label_56.setObjectName("label_56")
         self.gridLayout.addWidget(self.label_56, 7, 6, 1, 1, QtCore.Qt.AlignHCenter)
+        self.comboBox = QtWidgets.QComboBox(self.centralwidget)
+        self.comboBox.setGeometry(QtCore.QRect(10, 10, 230, 22))
+        self.comboBox.setObjectName("comboBox")
+        self.gridFrame2 = QtWidgets.QFrame(self.centralwidget)
+        self.gridFrame2.setGeometry(QtCore.QRect(10, 530, 230, 110))
+        font = QtGui.QFont()
+        font.setPointSize(8)
+        self.gridFrame2.setFont(font)
+        self.gridFrame2.setObjectName("gridFrame2")
+        self.gridLayout_3 = QtWidgets.QGridLayout(self.gridFrame2)
+        self.gridLayout_3.setObjectName("gridLayout_3")
+        self.pushButton = QtWidgets.QPushButton(self.gridFrame2)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.pushButton.setFont(font)
+        self.pushButton.setObjectName("pushButton")
+        self.gridLayout_3.addWidget(self.pushButton, 0, 0, 1, 1)
+        self.pushButton_2 = QtWidgets.QPushButton(self.gridFrame2)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.pushButton_2.setFont(font)
+        self.pushButton_2.setObjectName("pushButton_2")
+        self.gridLayout_3.addWidget(self.pushButton_2, 1, 0, 1, 1)
+        self.pushButton_3 = QtWidgets.QPushButton(self.gridFrame2)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.pushButton_3.setFont(font)
+        self.pushButton_3.setObjectName("pushButton_3")
+        self.gridLayout_3.addWidget(self.pushButton_3, 0, 1, 1, 1)
+        self.pushButton_4 = QtWidgets.QPushButton(self.gridFrame2)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.pushButton_4.setFont(font)
+        self.pushButton_4.setObjectName("pushButton_4")
+        self.gridLayout_3.addWidget(self.pushButton_4, 1, 1, 1, 1)
         self.verticalFrame.raise_()
         self.Main_List.raise_()
         self.gridFrame.raise_()
+        self.gridFrame.raise_()
+        self.comboBox.raise_()
         self.gridFrame.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
 
@@ -614,28 +670,29 @@ class Ui_MainWindow_2(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.comboBox_Quality_S.setItemText(0, _translate("MainWindow", "Обычн"))
-        self.comboBox_Quality_S.setItemText(1, _translate("MainWindow", "Хорош"))
-        self.comboBox_Quality_S.setItemText(2, _translate("MainWindow", "Выдающ"))
-        self.comboBox_Quality_S.setItemText(3, _translate("MainWindow", "Отличн"))
-        self.comboBox_Quality_S.setItemText(4, _translate("MainWindow", "Шедевр"))
+        self.radioButtonArmo.setText(_translate("MainWindow", "Броня"))
+        self.radioButton_Thinks.setText(_translate("MainWindow", "Шмотки"))
+        self.radioButton_Resurses.setText(_translate("MainWindow", "Ресурсы"))
+        self.comboBox_S.setItemText(0, _translate("MainWindow", "Стандарт"))
+        self.comboBox_S.setItemText(1, _translate("MainWindow", "Разница цен >"))
+        self.comboBox_S.setItemText(2, _translate("MainWindow", "Разница цен <"))
         self.Text_lable.setText(_translate("MainWindow", "Фильтр/Сортировка"))
-        self.comboBox_Tier_S.setItemText(0, _translate("MainWindow", "4"))
-        self.comboBox_Tier_S.setItemText(1, _translate("MainWindow", "5"))
-        self.comboBox_Tier_S.setItemText(2, _translate("MainWindow", "6"))
-        self.comboBox_Tier_S.setItemText(3, _translate("MainWindow", "7"))
-        self.comboBox_Tier_S.setItemText(4, _translate("MainWindow", "8"))
         self.comboBox_Rarity_S.setItemText(0, _translate("MainWindow", "0"))
         self.comboBox_Rarity_S.setItemText(1, _translate("MainWindow", "1"))
         self.comboBox_Rarity_S.setItemText(2, _translate("MainWindow", "2"))
         self.comboBox_Rarity_S.setItemText(3, _translate("MainWindow", "3"))
         self.comboBox_Rarity_S.setItemText(4, _translate("MainWindow", "4"))
-        self.radioButtonArmo.setText(_translate("MainWindow", "Броня"))
-        self.radioButton_Resurses.setText(_translate("MainWindow", "Ресурсы"))
-        self.radioButton_Thinks.setText(_translate("MainWindow", "Шмотки"))
-        self.comboBox_S.setItemText(0, _translate("MainWindow", "Стандарт"))
-        self.comboBox_S.setItemText(1, _translate("MainWindow", "Разница цен >"))
-        self.comboBox_S.setItemText(2, _translate("MainWindow", "Разница цен <"))
+        self.comboBox_Tier_S.setItemText(0, _translate("MainWindow", "4"))
+        self.comboBox_Tier_S.setItemText(1, _translate("MainWindow", "5"))
+        self.comboBox_Tier_S.setItemText(2, _translate("MainWindow", "6"))
+        self.comboBox_Tier_S.setItemText(3, _translate("MainWindow", "7"))
+        self.comboBox_Tier_S.setItemText(4, _translate("MainWindow", "8"))
+        self.label.setText(_translate("MainWindow", "Шаблоны Обновления"))
+        self.comboBox_Quality_S.setItemText(0, _translate("MainWindow", "Обычн"))
+        self.comboBox_Quality_S.setItemText(1, _translate("MainWindow", "Хорош"))
+        self.comboBox_Quality_S.setItemText(2, _translate("MainWindow", "Выдающ"))
+        self.comboBox_Quality_S.setItemText(3, _translate("MainWindow", "Отличн"))
+        self.comboBox_Quality_S.setItemText(4, _translate("MainWindow", "Шедевр"))
         self.label_Black_Market.setText(_translate("MainWindow", "Black_Market"))
         self.label_Carleon.setText(_translate("MainWindow", "Carleon"))
         self.label_Fort_Stearling.setText(_translate("MainWindow", "Fort Stearling"))
@@ -707,19 +764,26 @@ class Ui_MainWindow_2(object):
         self.label_54.setText(_translate("MainWindow", "TextLabel"))
         self.label_55.setText(_translate("MainWindow", "TextLabel"))
         self.label_56.setText(_translate("MainWindow", "TextLabel"))
+        self.pushButton.setText(_translate("MainWindow", "Броня Б/А"))
+        self.pushButton_2.setText(_translate("MainWindow", "Снаряжение"))
+        self.pushButton_3.setText(_translate("MainWindow", "Ресурсы"))
+        self.pushButton_4.setText(_translate("MainWindow", "Выбраный Файл"))
 
 
     def MainUnder_Funk(self):
         
-        Item.Item_in_listes('Prises.json')
-        self.Add_item_in_QlistWidget()
-
         self.Main_List.itemClicked.connect(self.Update_info)
+
+        self.comboBox.addItems(Find_All_Filename('./Last_List_Fille'))
+
+        self.comboBox.activated[str].connect(lambda: Item.Item_in_listes(self, './Last_List_Fille', self.comboBox.currentText()))
+
+        self.comboBox.activated[str].connect(lambda: self.Add_item_in_QlistWidget())
 
 
     def Add_item_in_QlistWidget(self):
         added_items = set()  # создаем пустое множество, которое будем использовать для проверки на дубликаты
-        
+        self.Main_List.clear()
         for it in Item_sort_list:  # итерируемся по списку элементов, которые нужно добавить
             if it.item_id not in added_items:  # если элемент не является дубликатом
                 
@@ -782,7 +846,7 @@ class Ui_MainWindow_2(object):
                 # если нашли товар, у которого item_id совпадает с выбранным текстом, переходим к обновлению информации по нему
                 if item.item_id == selected_name:
                     # определяем id города товара
-                    id = locations.index(item.city) + 1
+                    id = locations.index(item.city)
                     # обновляем информацию о ценах продажи и покупки для соответствующих кнопок в интерфейсе
                     self.Sell_prise_min_butt_group[id].setText(str(item.sell_price_min))
                     self.Sell_prise_min_date_butt_group[id].setText(item.sell_price_min_date)
@@ -793,6 +857,8 @@ class Ui_MainWindow_2(object):
                     self.Buy_prise_max_butt_group[id].setText(str(item.buy_price_max))
                     self.Buy_prise_max_date_butt_group[id].setText(item.buy_price_max_date)
 
+
+    
 
 
 if __name__ == "__main__":

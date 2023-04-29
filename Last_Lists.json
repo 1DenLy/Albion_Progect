@@ -1,0 +1,24 @@
+{
+    "items": [
+        "HEAD_CLOTH_SET3",
+        "HEAD_CLOTH_SET2",
+        "ARMOR_CLOTH_SET2",
+        "ARMOR_CLOTH_SET3"
+    ],
+    "tiers": [
+        "T4_"
+    ],
+    "rarities": [
+        ""
+    ],
+    "locations": [
+        "BlackMarket",
+        "Bridgewatch",
+        "Caerleon",
+        "Fortsterling",
+        "Lymhurst",
+        "Martlock",
+        "Thetford"
+    ],
+    "qualities": 2
+}

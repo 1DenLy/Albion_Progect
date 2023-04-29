@@ -2,7 +2,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QButtonGroup
 from datetime import datetime
 
-import webbrowser, pandas, os
+import os, json, pandas, webbrowser
 
 import List_item
 
@@ -1505,11 +1505,13 @@ class Ui_MainWindow(object):
         self.All_qualities_group.buttonClicked[int].connect(self.__Qualities_changing)
         self.All_Citys_group.buttonClicked[int].connect(self.__City_add)
 
-        self.pushButton_Start.clicked.connect(lambda: self.stats())
+        self.pushButton_Start.clicked.connect(lambda: self.New_start())
         self.pushButton_Exit.clicked.connect(lambda: self.exit())
 
 
     def main_button(self, group_button: list, item_list: list):
+        global Item_list_f
+        
         def check_butt(butt_id):
             #Получение id кнопки
             for btn in group_button.buttons():
@@ -1525,15 +1527,15 @@ class Ui_MainWindow(object):
         group_button.buttonClicked[int].connect(check_butt)
 
 
-    def __end_list(self):
-        global Item_list_f, Item_list_s
-        Item_list_s.clear()
-        
-        for item in Item_list_f:
-            for tier in Tier_list:
-                for rarity in Rarity_list:
-        
-                    Item_list_s.append( tier + item + rarity )
+    def __end_list(self, item_list_f, tier_list, rarity_list):
+        item_list_s = []
+
+        for item in item_list_f:
+            for tier in tier_list:
+                for rarity in rarity_list:
+                    item_list_s.append(tier + item + rarity)
+
+        return item_list_s
 
 
     def __tier_add(self, button_id: int):
@@ -1561,7 +1563,7 @@ class Ui_MainWindow(object):
 
 
     def __City_add(self, button_id: int):
-
+        global locations_list
         for btn in self.All_Citys_group.buttons():
             if btn is self.All_Citys_group.button(button_id):
 
@@ -1578,7 +1580,7 @@ class Ui_MainWindow(object):
         qualities = button_id
 
 
-    def Save_Json_From_Url(self, url, parse_date_column, pretty_print=False):
+    def Save_Json_From_Url(self, url: str, parse_date_column: str, pretty_print=False):
         try:
             df = pandas.read_html(url, header=0, parse_dates=[parse_date_column])
         except Exception as e:
@@ -1587,36 +1589,59 @@ class Ui_MainWindow(object):
         current_time = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
         
         file_name = f"Prices_{current_time}.json"
+
+        path_to_save = './Last_List_Fille/'
         
         if os.path.isfile(file_name):   # Проверяем, существует ли уже файл
             print(f"File {file_name} already exists, will not overwrite")
             return
         
         try:    # Записываем данные в формате JSON в файл с указанным именем
-            df[0].to_json(file_name, date_format="iso", indent=4 if pretty_print else None)
+            df[0].to_json(path_to_save + file_name, date_format="iso", indent=4 if pretty_print else None)
             print(f"Data saved to {file_name}")
         except Exception as e:  # Выводим сообщение об ошибке, если сохранение не удалось
             print(f"Failed to save data to {file_name}: {e}")
 
 
-    def stats(self):
-        global locations_list
+    def New_start(self):
 
         if self.radioButton.isChecked() and len(Tier_list) == 0 and len(Rarity_list) == 0 and len(locations_list) == 0: 
             self.Open_Program() 
         else:
-
-            self.__end_list()
-            
-            if all(len(lst) > 0 for lst in [Item_list_s, Tier_list, Rarity_list, locations_list]):
+            if all(len(lst) > 0 for lst in [Item_list_f, Tier_list, Rarity_list, locations_list]):
                 
-                URL = stock + ','. join(Item_list_s) + location + ','. join(locations_list) + qualities_url + str(qualities)
+                data = {    # Создаем словарь данных, которые нужно сохранить
+                    'items': Item_list_f,
+                    'tiers': Tier_list,
+                    'rarities': Rarity_list,
+                    'locations': locations_list,
+                    'qualities': qualities
+                    }
+                
+                with open('Last_Lists.json', 'w') as file:
+                    json.dump(data, file, indent=4)
 
-                if self.radioButton_6.isChecked(): webbrowser.open_new(URL)
+                # Создаем URL на основе данных из списков и других параметров
+                URL = stock + ','. join(self.__end_list(Item_list_f, Tier_list, Rarity_list)) + location + ','. join(locations_list) + qualities_url + str(qualities)
 
-                self.Save_Json_From_Url(URL, 'item_id', True)
+                if self.radioButton_6.isChecked(): 
+                    webbrowser.open_new(URL)
+                
+                # Сохраняем данные в файле с помощью метода Save_Json_From_Url
+                self.Save_Json_From_Url(URL, 'item_id', True) 
 
-                if self.radioButton.isChecked(): self.Open_Program()
+                if self.radioButton.isChecked(): 
+                    self.Open_Program()
+
+
+    def List_Start(self):
+
+        with open('Last_Lists.json', 'r') as file:
+            data = json.load(file)
+            URL = stock + ','. join(self.__end_list(data['items'], data['tiers'], data['rarities'])) + location + ','. join(data['locations']) + qualities_url + str(data['qualities'])
+
+        self.Save_Json_From_Url(URL, 'item_id', True)
+
 
     def exit(self):
         sys.exit()
@@ -1627,7 +1652,7 @@ stock = 'https://www.albion-online-data.com/api/v2/stats/view/'
 location = '?locations='
 
 locations = ['Caerleon','Fortsterling','Martlock','Thetford','Lymhurst','Bridgewatch']
-locations_list = []
+locations_list = ['BlackMarket']
 
 qualities_url = '&qualities=' 
 City_url = '?locations='
