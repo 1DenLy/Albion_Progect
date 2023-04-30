@@ -1,5 +1,5 @@
 
-import os, json
+import os, json, pandas
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
@@ -16,6 +16,7 @@ locations = ['Black Market','Caerleon','Fort Sterling','Lymhurst','Thetford','Ma
 
 class Item():
     global Find_All_Filename
+
     def __init__(self, item_id, city, 
                 sell_price_min=None, sell_price_min_date=None, 
                 sell_price_max=None, sell_price_max_date=None, 
@@ -75,6 +76,7 @@ class Item():
 
     def Find_All_Filename(folder_path: str):
         file_names = [f for f in os.listdir(folder_path) if f.endswith('.json')]
+        file_names.sort(reverse=True)
         return file_names
 
 
@@ -708,62 +710,62 @@ class Ui_MainWindow_2(object):
         self.label_Min_Buy_D.setText(_translate("MainWindow", "Min_Buy_D"))
         self.label_Max_Buy.setText(_translate("MainWindow", "Max_Buy"))
         self.label_Max_Buy_D.setText(_translate("MainWindow", "Max_Buy_D"))
-        self.label_23.setText(_translate("MainWindow", "TextLabel"))
-        self.label_14.setText(_translate("MainWindow", "TextLabel"))
-        self.label_16.setText(_translate("MainWindow", "TextLabel"))
-        self.label_17.setText(_translate("MainWindow", "TextLabel"))
-        self.label_18.setText(_translate("MainWindow", "TextLabel"))
-        self.label_13.setText(_translate("MainWindow", "TextLabel"))
-        self.label_21.setText(_translate("MainWindow", "TextLabel"))
-        self.label_20.setText(_translate("MainWindow", "TextLabel"))
-        self.label_9.setText(_translate("MainWindow", "TextLabel"))
-        self.label_10.setText(_translate("MainWindow", "TextLabel"))
-        self.label_12.setText(_translate("MainWindow", "TextLabel"))
-        self.label_11.setText(_translate("MainWindow", "TextLabel"))
-        self.label_7.setText(_translate("MainWindow", "TextLabel"))
-        self.label_1.setText(_translate("MainWindow", "TextLabel"))
-        self.label_8.setText(_translate("MainWindow", "TextLabel"))
-        self.label_15.setText(_translate("MainWindow", "TextLabel"))
-        self.label_22.setText(_translate("MainWindow", "TextLabel"))
-        self.label_2.setText(_translate("MainWindow", "TextLabel"))
-        self.label_29.setText(_translate("MainWindow", "TextLabel"))
-        self.label_43.setText(_translate("MainWindow", "TextLabel"))
-        self.label_50.setText(_translate("MainWindow", "TextLabel"))
-        self.label_36.setText(_translate("MainWindow", "TextLabel"))
-        self.label_4.setText(_translate("MainWindow", "TextLabel"))
-        self.label_3.setText(_translate("MainWindow", "TextLabel"))
-        self.label_19.setText(_translate("MainWindow", "TextLabel"))
-        self.label_6.setText(_translate("MainWindow", "TextLabel"))
-        self.label_5.setText(_translate("MainWindow", "TextLabel"))
-        self.label_25.setText(_translate("MainWindow", "TextLabel"))
-        self.label_26.setText(_translate("MainWindow", "TextLabel"))
-        self.label_27.setText(_translate("MainWindow", "TextLabel"))
-        self.label_24.setText(_translate("MainWindow", "TextLabel"))
-        self.label_30.setText(_translate("MainWindow", "TextLabel"))
-        self.label_28.setText(_translate("MainWindow", "TextLabel"))
-        self.label_33.setText(_translate("MainWindow", "TextLabel"))
-        self.label_31.setText(_translate("MainWindow", "TextLabel"))
-        self.label_34.setText(_translate("MainWindow", "TextLabel"))
-        self.label_35.setText(_translate("MainWindow", "TextLabel"))
-        self.label_32.setText(_translate("MainWindow", "TextLabel"))
-        self.label_37.setText(_translate("MainWindow", "TextLabel"))
-        self.label_40.setText(_translate("MainWindow", "TextLabel"))
-        self.label_38.setText(_translate("MainWindow", "TextLabel"))
-        self.label_41.setText(_translate("MainWindow", "TextLabel"))
-        self.label_39.setText(_translate("MainWindow", "TextLabel"))
-        self.label_42.setText(_translate("MainWindow", "TextLabel"))
-        self.label_45.setText(_translate("MainWindow", "TextLabel"))
-        self.label_44.setText(_translate("MainWindow", "TextLabel"))
-        self.label_46.setText(_translate("MainWindow", "TextLabel"))
-        self.label_48.setText(_translate("MainWindow", "TextLabel"))
-        self.label_47.setText(_translate("MainWindow", "TextLabel"))
-        self.label_49.setText(_translate("MainWindow", "TextLabel"))
-        self.label_51.setText(_translate("MainWindow", "TextLabel"))
-        self.label_53.setText(_translate("MainWindow", "TextLabel"))
-        self.label_52.setText(_translate("MainWindow", "TextLabel"))
-        self.label_54.setText(_translate("MainWindow", "TextLabel"))
-        self.label_55.setText(_translate("MainWindow", "TextLabel"))
-        self.label_56.setText(_translate("MainWindow", "TextLabel"))
+        self.label_23.setText(_translate("MainWindow", "Prise"))
+        self.label_14.setText(_translate("MainWindow", "Time"))
+        self.label_16.setText(_translate("MainWindow", "Prise"))
+        self.label_17.setText(_translate("MainWindow", "Prise"))
+        self.label_18.setText(_translate("MainWindow", "Prise"))
+        self.label_13.setText(_translate("MainWindow", "Time"))
+        self.label_21.setText(_translate("MainWindow", "Prise"))
+        self.label_20.setText(_translate("MainWindow", "Prise"))
+        self.label_9.setText(_translate("MainWindow", "Time"))
+        self.label_10.setText(_translate("MainWindow", "Time"))
+        self.label_12.setText(_translate("MainWindow", "Time"))
+        self.label_11.setText(_translate("MainWindow", "Time"))
+        self.label_7.setText(_translate("MainWindow", "Prise"))
+        self.label_1.setText(_translate("MainWindow", "Prise"))
+        self.label_8.setText(_translate("MainWindow", "Time"))
+        self.label_15.setText(_translate("MainWindow", "Prise"))
+        self.label_22.setText(_translate("MainWindow", "Prise"))
+        self.label_2.setText(_translate("MainWindow", "Prise"))
+        self.label_29.setText(_translate("MainWindow", "Prise"))
+        self.label_43.setText(_translate("MainWindow", "Prise"))
+        self.label_50.setText(_translate("MainWindow", "Prise"))
+        self.label_36.setText(_translate("MainWindow", "Prise"))
+        self.label_4.setText(_translate("MainWindow", "Prise"))
+        self.label_3.setText(_translate("MainWindow", "Prise"))
+        self.label_19.setText(_translate("MainWindow", "Prise"))
+        self.label_6.setText(_translate("MainWindow", "Prise"))
+        self.label_5.setText(_translate("MainWindow", "Prise"))
+        self.label_25.setText(_translate("MainWindow", "Prise"))
+        self.label_26.setText(_translate("MainWindow", "Prise"))
+        self.label_27.setText(_translate("MainWindow", "Prise"))
+        self.label_24.setText(_translate("MainWindow", "Prise"))
+        self.label_30.setText(_translate("MainWindow", "Prise"))
+        self.label_28.setText(_translate("MainWindow", "Prise"))
+        self.label_33.setText(_translate("MainWindow", "Prise"))
+        self.label_31.setText(_translate("MainWindow", "Prise"))
+        self.label_34.setText(_translate("MainWindow", "Prise"))
+        self.label_35.setText(_translate("MainWindow", "Prise"))
+        self.label_32.setText(_translate("MainWindow", "Prise"))
+        self.label_37.setText(_translate("MainWindow", "Prise"))
+        self.label_40.setText(_translate("MainWindow", "Prise"))
+        self.label_38.setText(_translate("MainWindow", "Prise"))
+        self.label_41.setText(_translate("MainWindow", "Prise"))
+        self.label_39.setText(_translate("MainWindow", "Prise"))
+        self.label_42.setText(_translate("MainWindow", "Prise"))
+        self.label_45.setText(_translate("MainWindow", "Prise"))
+        self.label_44.setText(_translate("MainWindow", "Prise"))
+        self.label_46.setText(_translate("MainWindow", "Prise"))
+        self.label_48.setText(_translate("MainWindow", "Prise"))
+        self.label_47.setText(_translate("MainWindow", "Prise"))
+        self.label_49.setText(_translate("MainWindow", "Prise"))
+        self.label_51.setText(_translate("MainWindow", "Prise"))
+        self.label_53.setText(_translate("MainWindow", "Prise"))
+        self.label_52.setText(_translate("MainWindow", "Prise"))
+        self.label_54.setText(_translate("MainWindow", "Prise"))
+        self.label_55.setText(_translate("MainWindow", "Prise"))
+        self.label_56.setText(_translate("MainWindow", "Prise"))
         self.pushButton.setText(_translate("MainWindow", "Броня Б/А"))
         self.pushButton_2.setText(_translate("MainWindow", "Снаряжение"))
         self.pushButton_3.setText(_translate("MainWindow", "Ресурсы"))
@@ -774,12 +776,22 @@ class Ui_MainWindow_2(object):
         
         self.Main_List.itemClicked.connect(self.Update_info)
 
-        self.comboBox.addItems(Find_All_Filename('./Last_List_Fille'))
+        self.comboBox_update()
 
         self.comboBox.activated[str].connect(lambda: Item.Item_in_listes(self, './Last_List_Fille', self.comboBox.currentText()))
 
         self.comboBox.activated[str].connect(lambda: self.Add_item_in_QlistWidget())
 
+        self.pushButton.clicked.connect(lambda: self.Knew_num_Start(1))
+        self.pushButton_2.clicked.connect(lambda: self.Knew_num_Start(2))
+        self.pushButton_3.clicked.connect(lambda: self.Knew_num_Start(3))
+        self.pushButton_4.clicked.connect(lambda: self.Knew_num_Start(4))
+
+
+    def comboBox_update(self):
+        self.comboBox.clear()
+        self.comboBox.addItems(Find_All_Filename('./Last_List_Fille'))
+        
 
     def Add_item_in_QlistWidget(self):
         added_items = set()  # создаем пустое множество, которое будем использовать для проверки на дубликаты
@@ -858,8 +870,63 @@ class Ui_MainWindow_2(object):
                     self.Buy_prise_max_date_butt_group[id].setText(item.buy_price_max_date)
 
 
-    
+    def end_list(self, item_list_f, tier_list, rarity_list):
+            item_list_s = []
 
+            for item in item_list_f:
+                for tier in tier_list:
+                    for rarity in rarity_list:
+                        item_list_s.append(tier + item + rarity)
+
+            return item_list_s
+        
+
+    def Save_Json_From_Url(self, url: str, parse_date_column: str, pretty_print=False):
+        try:
+            df = pandas.read_html(url, header=0, parse_dates=[parse_date_column])
+        except Exception as e:
+            print(f"Failed to read data from {url}: {e}")
+            
+        current_time = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
+        
+        file_name = f"Prices_{current_time}.json"
+
+        path_to_save = './Last_List_Fille/'
+        
+        if os.path.isfile(file_name):   # Проверяем, существует ли уже файл
+            print(f"File {file_name} already exists, will not overwrite")
+            return
+        
+        try:    # Записываем данные в формате JSON в файл с указанным именем
+            df[0].to_json(path_to_save + file_name, date_format="iso", indent=4 if pretty_print else None)
+            print(f"Data saved to {file_name}")
+        except Exception as e:  # Выводим сообщение об ошибке, если сохранение не удалось
+            print(f"Failed to save data to {file_name}: {e}")
+
+
+    def Knew_num_Start(self, num: int):
+        num_file = num
+
+        def List_Start():
+
+            if num_file == 1: name_file = './Start_File/' + 'Last_Armo_Lists' + '.json'
+            if num_file == 2: name_file = './Start_File/' + 'Last_Bag_Lists' + '.json'
+            if num_file == 3: name_file = './Start_File/' + 'Last_Resours_Lists' + '.json'
+            if num_file == 4: name_file = './' + 'Last_Lists' + '.json'
+            
+            with open((name_file), 'r') as file:
+                data = json.load(file)
+                URL = stock + ','. join(self.end_list(data['items'], data['tiers'], data['rarities'])) + location + ','. join(data['locations']) + qualities_url + str(data['qualities'])
+
+                self.Save_Json_From_Url(URL, 'item_id', True)
+                self.comboBox_update()
+
+        List_Start()
+
+
+stock = 'https://www.albion-online-data.com/api/v2/stats/view/'
+location = '?locations='
+qualities_url = '&qualities='
 
 if __name__ == "__main__":
     import sys

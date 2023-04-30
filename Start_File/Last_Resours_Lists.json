@@ -1,0 +1,38 @@
+{
+    "items": [
+        "ORE",
+        "METALBAR",
+        "FIBER",
+        "CLOTH",
+        "WOOD",
+        "PLANKS",
+        "HIDE",
+        "LEATHER",
+        "ROCK",
+        "STONEBLOCK"
+    ],
+    "tiers": [
+        "T4_",
+        "T5_",
+        "T6_",
+        "T7_",
+        "T8_"
+    ],
+    "rarities": [
+        "",
+        "@1",
+        "@2",
+        "@3",
+        "@4"
+    ],
+    "locations": [
+        "BlackMarket",
+        "Bridgewatch",
+        "Caerleon",
+        "Fortsterling",
+        "Lymhurst",
+        "Martlock",
+        "Thetford"
+    ],
+    "qualities": 1
+}

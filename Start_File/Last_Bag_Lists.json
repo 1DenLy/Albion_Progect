@@ -1,13 +1,19 @@
 {
     "items": [
-        "HEAD_CLOTH_SET3",
-        "ARMOR_CLOTH_SET2"
+        "BAG",
+        "BAG_INSIGHT",
+        "CAPE"
     ],
     "tiers": [
-        "T4_"
+        "T4_",
+        "T5_",
+        "T6_",
+        "T7_",
+        "T8_"
     ],
     "rarities": [
-        ""
+        "",
+        "@1"
     ],
     "locations": [
         "BlackMarket",

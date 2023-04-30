@@ -1,0 +1,52 @@
+{
+    "items": [
+        "HEAD_CLOTH_SET1",
+        "HEAD_CLOTH_SET3",
+        "HEAD_CLOTH_SET2",
+        "ARMOR_CLOTH_SET2",
+        "ARMOR_CLOTH_SET3",
+        "ARMOR_CLOTH_SET1",
+        "SHOES_CLOTH_SET1",
+        "SHOES_CLOTH_SET3",
+        "SHOES_CLOTH_SET2",
+        "HEAD_LEATHER_SET1",
+        "HEAD_PLEATHER_SET2",
+        "HEAD_LEATHER_SET3",
+        "ARMOR_LEATHER_SET2",
+        "ARMOR_LEATHER_SET3",
+        "ARMOR_LEATHER_SET1",
+        "SHOES_LEATHER_SET1",
+        "SHOES_LEATHER_SET3",
+        "SHOES_LEATHER_SET2",
+        "HEAD_PLATE_SET1",
+        "HEAD_PLATE_SET2",
+        "HEAD_PLATE_SET3",
+        "ARMOR_PLATE_SET2",
+        "ARMOR_PLATE_SET1",
+        "ARMOR_PLATE_SET3",
+        "SHOES_PLATE_SET1",
+        "SHOES_PLATE_SET3",
+        "SHOES_PLATE_SET2"
+    ],
+    "tiers": [
+        "T4_",
+        "T5_",
+        "T6_",
+        "T7_",
+        "T8_"
+    ],
+    "rarities": [
+        "",
+        "@1"
+    ],
+    "locations": [
+        "BlackMarket",
+        "Bridgewatch",
+        "Caerleon",
+        "Fortsterling",
+        "Lymhurst",
+        "Martlock",
+        "Thetford"
+    ],
+    "qualities": 2
+}
