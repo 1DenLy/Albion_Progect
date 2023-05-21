@@ -2,9 +2,10 @@
 import os, json, pandas
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QButtonGroup, QComboBox
 
 from datetime import datetime
-
+import List_item
 
 Item_sort_list = []
 City_dict = {}
@@ -13,6 +14,11 @@ sell_price_max_dict = {}
 buy_price_min_dict = {}
 buy_price_max_dict = {}
 locations = ['Black Market','Caerleon','Fort Sterling','Lymhurst','Thetford','Martlock','Bridgewatch']
+
+List_name_check_Armo = ['ARM', 'HEA', 'SHO']
+List_name_check_Thinks = ['BAG', 'CAP']
+Rarytyes = ['@1', '@2', '@3', '@4']
+
 
 class Item():
     global Find_All_Filename
@@ -48,7 +54,7 @@ class Item():
 
 
     def __format_datetime(self, dt):
-        today = datetime.now()
+        today = datetime.now() # Получаем текущую дату и время
 
         if dt is not None:
             # Преобразуем строку dt в объект datetime.datetime
@@ -74,7 +80,12 @@ class Item():
         Add_list.append(self)
 
 
-    def Find_All_Filename(folder_path: str):
+    def Find_All_Filename(folder_path: str): # Получаем список файлов в директории с помощью функции os.listdir()
+        # Она возвращает список строк с именами файлов и папок в указанной директории
+        
+        # Создаем список, в который будут добавляться имена файлов с расширением .json
+        # Для каждого имени файла в списке files_in_folder проверяем, заканчивается ли оно на ".json"
+        # Если имя файла заканчивается на ".json", добавляем его в список json_files
         file_names = [f for f in os.listdir(folder_path) if f.endswith('.json')]
         file_names.sort(reverse=True)
         return file_names
@@ -85,36 +96,52 @@ class Item():
         # Очищаем список перед добавлением новых элементов
         Item_sort_list.clear()
         
-        for file in Find_All_Filename(path):
-            if file == taken_name:
-                file_n = path + '/' + file
+        for file in os.listdir(path):
+            if file == taken_name and file.endswith('.json'):
+                file_n = os.path.join(path, file)
 
-        try:
-            # Открываем JSON файл и загружаем данные
-            with open(file_n, 'r') as opened_file:
-                datas = json.load(opened_file)
+                try:
+                    # Открываем JSON файл и загружаем данные
+                    with open(file_n, 'r') as opened_file:
+                        datas = json.load(opened_file)
 
-                for i in range(len(datas['item_id'])):
-                    i = str(i)
+                        for i in range(len(datas['item_id'])):
+                            i = str(i)
 
-                    # Создаем экземпляр Item для каждого элемента в файле
-                    Generated_item = Item(datas['item_id'][i], 
-                                datas['city'][i], 
-                                datas['sell_price_min'][i], 
-                                datas['sell_price_min_date'][i], 
-                                datas['sell_price_max'][i], 
-                                datas['sell_price_max_date'][i], 
-                                datas['buy_price_min'][i], 
-                                datas['buy_price_min_date'][i], 
-                                datas['buy_price_max'][i], 
-                                datas['buy_price_max_date'][i])
-                    # Добавляем элемент в список
-                    Generated_item.__AddItem(Item_sort_list)
+                            # Создаем экземпляр Item для каждого элемента в файле
+                            Generated_item = Item(datas['item_id'][i], 
+                                        datas['city'][i], 
+                                        datas['sell_price_min'][i], 
+                                        datas['sell_price_min_date'][i], 
+                                        datas['sell_price_max'][i], 
+                                        datas['sell_price_max_date'][i], 
+                                        datas['buy_price_min'][i], 
+                                        datas['buy_price_min_date'][i], 
+                                        datas['buy_price_max'][i], 
+                                        datas['buy_price_max_date'][i])
+                            # Добавляем элемент в список
+                            Generated_item.__AddItem(Item_sort_list)
+
+                except (IOError, ValueError, KeyError) as element:
+                    print(f'An error occured while reading the JSON file: {element}')
+
+
+    def Quality_Check(self, path: str, need_quality: int):
         
-        except (IOError, ValueError, KeyError) as element:
-            print(f'An error occured while reading the JSON file: {element}')
+        need_file =[]
 
+        for file in os.listdir(path):
+            file_n = os.path.join(path, file)
 
+            if os.path.isfile(file_n) and file_n.endswith('.json'):
+                with open(file_n, 'r') as opened_file:
+                    datas = json.load(opened_file)
+                    qua = datas['quality'].get('1')
+
+                    if qua == need_quality:
+                        need_file.append(file)
+
+        return need_file
 
 class Ui_MainWindow_2(object):
     def setupUi(self, MainWindow):
@@ -148,16 +175,16 @@ class Ui_MainWindow_2(object):
         self.radioButton_Resurses.setFont(font)
         self.radioButton_Resurses.setObjectName("radioButton_Resurses")
         self.gridLayout_2.addWidget(self.radioButton_Resurses, 2, 2, 1, 1, QtCore.Qt.AlignLeft)
-        self.comboBox_S = QtWidgets.QComboBox(self.gridFrame)
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.comboBox_S.setFont(font)
-        self.comboBox_S.setCursor(QtGui.QCursor(QtCore.Qt.SizeVerCursor))
-        self.comboBox_S.setObjectName("comboBox_S")
-        self.comboBox_S.addItem("")
-        self.comboBox_S.addItem("")
-        self.comboBox_S.addItem("")
-        self.gridLayout_2.addWidget(self.comboBox_S, 3, 0, 1, 3)
+        # self.comboBox_S = QtWidgets.QComboBox(self.gridFrame)
+        # font = QtGui.QFont()
+        # font.setPointSize(10)
+        # self.comboBox_S.setFont(font)
+        # self.comboBox_S.setCursor(QtGui.QCursor(QtCore.Qt.SizeVerCursor))
+        # self.comboBox_S.setObjectName("comboBox_S")
+        # self.comboBox_S.addItem("")
+        # self.comboBox_S.addItem("")
+        # self.comboBox_S.addItem("")
+        # self.gridLayout_2.addWidget(self.comboBox_S, 3, 0, 1, 3)
         self.Text_lable = QtWidgets.QLabel(self.gridFrame)
         font = QtGui.QFont()
         font.setPointSize(14)
@@ -174,12 +201,14 @@ class Ui_MainWindow_2(object):
         self.comboBox_Rarity_S.addItem("")
         self.comboBox_Rarity_S.addItem("")
         self.comboBox_Rarity_S.addItem("")
+        self.comboBox_Rarity_S.addItem("")
         self.gridLayout_2.addWidget(self.comboBox_Rarity_S, 1, 1, 1, 1)
         self.comboBox_Tier_S = QtWidgets.QComboBox(self.gridFrame)
         font = QtGui.QFont()
         font.setPointSize(10)
         self.comboBox_Tier_S.setFont(font)
         self.comboBox_Tier_S.setObjectName("comboBox_Tier_S")
+        self.comboBox_Tier_S.addItem("")
         self.comboBox_Tier_S.addItem("")
         self.comboBox_Tier_S.addItem("")
         self.comboBox_Tier_S.addItem("")
@@ -199,6 +228,7 @@ class Ui_MainWindow_2(object):
         font.setPointSize(10)
         self.comboBox_Quality_S.setFont(font)
         self.comboBox_Quality_S.setObjectName("comboBox_Quality_S")
+        self.comboBox_Quality_S.addItem("")
         self.comboBox_Quality_S.addItem("")
         self.comboBox_Quality_S.addItem("")
         self.comboBox_Quality_S.addItem("")
@@ -662,6 +692,11 @@ class Ui_MainWindow_2(object):
         self.Buy_prise_max_butt_group = [self.label_43, self.label_44, self.label_45, self.label_46, self.label_47, self.label_48, self.label_49]
         self.Buy_prise_max_date_butt_group = [self.label_50, self.label_51, self.label_52, self.label_53, self.label_54, self.label_55, self.label_56]
 
+        self.Butt_item_group = QButtonGroup()
+        self.Butt_item_group.addButton(self.radioButton_Resurses)
+        self.Butt_item_group.addButton(self.radioButton_Thinks)
+        self.Butt_item_group.addButton(self.radioButtonArmo)
+
 
         self.MainUnder_Funk()
 
@@ -673,28 +708,31 @@ class Ui_MainWindow_2(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.radioButtonArmo.setText(_translate("MainWindow", "Броня"))
-        self.radioButton_Thinks.setText(_translate("MainWindow", "Шмотки"))
-        self.radioButton_Resurses.setText(_translate("MainWindow", "Ресурсы"))
-        self.comboBox_S.setItemText(0, _translate("MainWindow", "Стандарт"))
-        self.comboBox_S.setItemText(1, _translate("MainWindow", "Разница цен >"))
-        self.comboBox_S.setItemText(2, _translate("MainWindow", "Разница цен <"))
-        self.Text_lable.setText(_translate("MainWindow", "Фильтр/Сортировка"))
-        self.comboBox_Rarity_S.setItemText(0, _translate("MainWindow", "0"))
-        self.comboBox_Rarity_S.setItemText(1, _translate("MainWindow", "1"))
-        self.comboBox_Rarity_S.setItemText(2, _translate("MainWindow", "2"))
-        self.comboBox_Rarity_S.setItemText(3, _translate("MainWindow", "3"))
-        self.comboBox_Rarity_S.setItemText(4, _translate("MainWindow", "4"))
-        self.comboBox_Tier_S.setItemText(0, _translate("MainWindow", "4"))
-        self.comboBox_Tier_S.setItemText(1, _translate("MainWindow", "5"))
-        self.comboBox_Tier_S.setItemText(2, _translate("MainWindow", "6"))
-        self.comboBox_Tier_S.setItemText(3, _translate("MainWindow", "7"))
-        self.comboBox_Tier_S.setItemText(4, _translate("MainWindow", "8"))
-        self.label.setText(_translate("MainWindow", "Шаблоны Обновления"))
-        self.comboBox_Quality_S.setItemText(0, _translate("MainWindow", "Обычн"))
-        self.comboBox_Quality_S.setItemText(1, _translate("MainWindow", "Хорош"))
-        self.comboBox_Quality_S.setItemText(2, _translate("MainWindow", "Выдающ"))
-        self.comboBox_Quality_S.setItemText(3, _translate("MainWindow", "Отличн"))
-        self.comboBox_Quality_S.setItemText(4, _translate("MainWindow", "Шедевр"))
+        self.radioButton_Thinks.setText(_translate("MainWindow", "Речі"))
+        self.radioButton_Resurses.setText(_translate("MainWindow", "Ресурси"))
+        # self.comboBox_S.setItemText(0, _translate("MainWindow", "Стандарт"))
+        # self.comboBox_S.setItemText(1, _translate("MainWindow", "Разница цен >"))
+        # self.comboBox_S.setItemText(2, _translate("MainWindow", "Разница цен <"))
+        self.Text_lable.setText(_translate("MainWindow", "Фільтр/Сортування"))
+        self.comboBox_Rarity_S.setItemText(0, _translate("MainWindow", "---"))
+        self.comboBox_Rarity_S.setItemText(1, _translate("MainWindow", "0"))
+        self.comboBox_Rarity_S.setItemText(2, _translate("MainWindow", "1"))
+        self.comboBox_Rarity_S.setItemText(3, _translate("MainWindow", "2"))
+        self.comboBox_Rarity_S.setItemText(4, _translate("MainWindow", "3"))
+        self.comboBox_Rarity_S.setItemText(5, _translate("MainWindow", "4"))
+        self.comboBox_Tier_S.setItemText(0, _translate("MainWindow", "---"))
+        self.comboBox_Tier_S.setItemText(1, _translate("MainWindow", "4"))
+        self.comboBox_Tier_S.setItemText(2, _translate("MainWindow", "5"))
+        self.comboBox_Tier_S.setItemText(3, _translate("MainWindow", "6"))
+        self.comboBox_Tier_S.setItemText(4, _translate("MainWindow", "7"))
+        self.comboBox_Tier_S.setItemText(5, _translate("MainWindow", "8"))
+        self.label.setText(_translate("MainWindow", "Шаблони Обновлення"))
+        self.comboBox_Quality_S.setItemText(0, _translate("MainWindow", "---"))
+        self.comboBox_Quality_S.setItemText(1, _translate("MainWindow", "Обичн"))
+        self.comboBox_Quality_S.setItemText(2, _translate("MainWindow", "Хорош"))
+        self.comboBox_Quality_S.setItemText(3, _translate("MainWindow", "Видающ"))
+        self.comboBox_Quality_S.setItemText(4, _translate("MainWindow", "Отлічн"))
+        self.comboBox_Quality_S.setItemText(5, _translate("MainWindow", "Шедевр"))
         self.label_Black_Market.setText(_translate("MainWindow", "Black_Market"))
         self.label_Carleon.setText(_translate("MainWindow", "Carleon"))
         self.label_Fort_Stearling.setText(_translate("MainWindow", "Fort Stearling"))
@@ -767,81 +805,82 @@ class Ui_MainWindow_2(object):
         self.label_55.setText(_translate("MainWindow", "Prise"))
         self.label_56.setText(_translate("MainWindow", "Prise"))
         self.pushButton.setText(_translate("MainWindow", "Броня Б/А"))
-        self.pushButton_2.setText(_translate("MainWindow", "Снаряжение"))
-        self.pushButton_3.setText(_translate("MainWindow", "Ресурсы"))
-        self.pushButton_4.setText(_translate("MainWindow", "Выбраный Файл"))
+        self.pushButton_2.setText(_translate("MainWindow", "Речі"))
+        self.pushButton_3.setText(_translate("MainWindow", "Ресурси"))
+        self.pushButton_4.setText(_translate("MainWindow", "Вибраний Файл"))
 
 
     def MainUnder_Funk(self):
+
+        if self.Butt_item_group.checkedButton():
+            self.Add_item_in_QlistWidget
         
+
+        # соединяем сигнал itemClicked из элемента управления Main_List с методом Update_info
         self.Main_List.itemClicked.connect(self.Update_info)
 
         self.comboBox_update()
-
+        # соединяем сигнал activated элемента управления comboBox с методом Item_in_listes класса Item с передачей аргументов
         self.comboBox.activated[str].connect(lambda: Item.Item_in_listes(self, './Last_List_Fille', self.comboBox.currentText()))
-
+        # соединяем сигнал activated элемента управления comboBox с методом Add_item_in_QlistWidget
         self.comboBox.activated[str].connect(lambda: self.Add_item_in_QlistWidget())
+        # соединяем сигнал clicked элемента управления pushButton с методом Knew_num_Start с передачей аргумента 1 2 3 4
+        self.pushButton.clicked.connect(lambda: self.List_Start(1))
+        self.pushButton_2.clicked.connect(lambda: self.List_Start(2))
+        self.pushButton_3.clicked.connect(lambda: self.List_Start(3))
+        self.pushButton_4.clicked.connect(lambda: self.List_Start(4))
 
-        self.pushButton.clicked.connect(lambda: self.Knew_num_Start(1))
-        self.pushButton_2.clicked.connect(lambda: self.Knew_num_Start(2))
-        self.pushButton_3.clicked.connect(lambda: self.Knew_num_Start(3))
-        self.pushButton_4.clicked.connect(lambda: self.Knew_num_Start(4))
+
+        self.comboBox_Tier_S.activated[str].connect(self.Sorting_Item)
+        self.comboBox_Rarity_S.activated[str].connect(self.Sorting_Item)
+        self.comboBox_Quality_S.activated[str].connect(self.Sorting_Item)
 
 
     def comboBox_update(self):
-        self.comboBox.clear()
         self.comboBox.addItems(Find_All_Filename('./Last_List_Fille'))
-        
+
 
     def Add_item_in_QlistWidget(self):
+        global Start_list
+        global get_list_widget_strings
+
+        def get_list_widget_strings(list_widget):
+            rows = []
+            items = list_widget.findItems("*", QtCore.Qt.MatchWildcard)
+            for item in items:
+                rows.append(item.text())
+            return rows
+
+
         added_items = set()  # создаем пустое множество, которое будем использовать для проверки на дубликаты
         self.Main_List.clear()
-        for it in Item_sort_list:  # итерируемся по списку элементов, которые нужно добавить
-            if it.item_id not in added_items:  # если элемент не является дубликатом
-                
-                self.Main_List.addItem(it.item_id)  # добавляем элемент в QListWidget
-                added_items.add(it.item_id)  # добавляем элемент в множество добавленных элементов
 
-
-    def Sorting(self):
-        global ik, sell_price_min_dict, sell_price_max_dict, buy_price_min_dict, buy_price_max_dict
+        self.comboBox_Tier_S.setCurrentIndex(0)
+        self.comboBox_Rarity_S.setCurrentIndex(0)
+        self.comboBox_Quality_S.setCurrentIndex(0)
         
-        for fik in Item_sort_list:
+        def add_to_list(list, check_name):
+            for name in list:
+                if name == check_name[3:6]:
+                    if check_name not in added_items:  # если элемент не является дубликатом
+                        self.Main_List.addItem(check_name)  # добавляем элемент в QListWidget
+                        added_items.add(check_name)  # добавляем элемент в множество добавленных элементов
 
-            City_dict[ik] = fik.city
+        for it in Item_sort_list:  # итерируемся по списку элементов, которые нужно добавить
 
-            if fik.sell_price_min == None: fik.sell_price_min = 0
-            if fik.sell_price_max == None: fik.sell_price_max = 0
-            if fik.buy_price_min == None: fik.buy_price_min = 0
-            if fik.buy_price_max == None: fik.buy_price_max = 0
-            
-            sell_price_min_dict[ik] = fik.sell_price_min
-            sell_price_max_dict[ik] = fik.sell_price_max
-            buy_price_min_dict[ik] = fik.buy_price_min
-            buy_price_max_dict[ik] = fik.buy_price_max
+            if self.radioButtonArmo.isChecked():
+                add_to_list(List_name_check_Armo, it.item_id)
+            elif self.radioButton_Thinks.isChecked():
+                add_to_list(List_name_check_Thinks, it.item_id)
+            elif self.radioButton_Resurses.isChecked():
+                add_to_list(List_item.Resource, it.item_id)
+            else:
+                if it.item_id not in added_items:
+                    self.Main_List.addItem(it.item_id)
+                    added_items.add(it.item_id)
 
-            ik += 1
 
-        def get_key(dict: dict, value):
-            for key, val in dict.items():
-                if val == value:
-                    return key
-
-        def Sort_dict(dict: dict):
-            Sorted_dict = {}
-            sort_list = sorted(dict.values(), reverse=True)
-
-            for i in dict.values():
-                for i in sort_list:
-                    Sorted_dict[get_key(dict, i)] = i
-
-            dict = Sorted_dict
-            return dict
-            
-        sell_price_min_dict = Sort_dict(sell_price_min_dict)
-        sell_price_max_dict = Sort_dict(sell_price_max_dict)
-        buy_price_min_dict = Sort_dict(buy_price_min_dict)
-        buy_price_max_dict = Sort_dict(buy_price_max_dict)
+        Start_list = get_list_widget_strings(self.Main_List)
 
 
     def Update_info(self):
@@ -870,16 +909,134 @@ class Ui_MainWindow_2(object):
                     self.Buy_prise_max_date_butt_group[id].setText(item.buy_price_max_date)
 
 
-    def end_list(self, item_list_f, tier_list, rarity_list):
-            item_list_s = []
-
-            for item in item_list_f:
-                for tier in tier_list:
-                    for rarity in rarity_list:
-                        item_list_s.append(tier + item + rarity)
-
-            return item_list_s
+    def Sorting_Item(self):
         
+        def filter_strings(string_list: list, opsions: int, second_char, last_two_chars:str):
+            filtered_list = []
+            try:
+                if opsions == 2: # фильтр по второму символу и последним двум символам
+                    if last_two_chars != '@0':
+                        for string in string_list:
+                            if len(string) >= 3 and string[1] == str(second_char) and string[-2:] == str(last_two_chars):
+                                filtered_list.append(string)
+                        return filtered_list
+                    else: 
+                        for string in string_list:
+                            if len(string) >= 3 and string[1] == str(second_char) and string[-2] != '@':
+                                filtered_list.append(string)
+                        return filtered_list
+
+                elif opsions == 1: # фильтр по второму символу
+                    for string in string_list:
+                        if len(string) >= 3 and string[1] == str(second_char):
+                            filtered_list.append(string)
+                    return filtered_list
+                
+                elif opsions == -1: # фильтр по последним двум символам
+                    
+                    if last_two_chars != '@0':
+                        for string in string_list:
+                            if len(string) >= 3 and string[-2:] == str(last_two_chars):
+                                filtered_list.append(string)
+                        return filtered_list
+                    else:
+                        for string in string_list:
+                            if len(string) >= 3 and string[-2] != '@':
+                                filtered_list.append(string)
+                        return filtered_list
+            
+            except Exception as e:
+                print(f'Error in Sorting_Item function: {e}')
+
+        try:
+
+            # Очистка исходного списка, если оба комбо-бокса находятся на изначальных значениях
+            if self.comboBox_Tier_S.currentIndex() == 0 and self.comboBox_Rarity_S.currentIndex() == 0:
+
+                self.Main_List.clear()
+                self.Main_List.addItems(Start_list)
+
+            else:
+                # Фильтрация списка в зависимости от выбора в комбо-боксах
+                if self.comboBox_Tier_S.currentIndex() and self.comboBox_Rarity_S.currentIndex() > 0:
+                    
+                    self.Main_List.clear()
+                    need_tier_index = (self.comboBox_Tier_S.currentIndex() + 3)
+                    option_index = '@' + str(self.comboBox_Rarity_S.currentIndex() - 1)
+                    self.Main_List.addItems(filter_strings(Start_list, 2, need_tier_index, option_index))
+
+                elif self.comboBox_Tier_S.currentIndex() > 0 and self.comboBox_Rarity_S.currentIndex() == 0:
+                    
+                    self.Main_List.clear()
+                    need_tier_index = (self.comboBox_Tier_S.currentIndex() + 3)
+                    self.Main_List.addItems(filter_strings(Start_list, 1, need_tier_index, None))
+
+                elif self.comboBox_Rarity_S.currentIndex() > 0 and self.comboBox_Tier_S.currentIndex() == 0:
+
+                    self.Main_List.clear()
+                    option_index = '@' + str(self.comboBox_Rarity_S.currentIndex() - 1)
+                    self.Main_List.addItems(filter_strings(Start_list, -1, None, option_index))
+
+            # Обновление комбо-бокса "Quality"
+            if self.comboBox_Quality_S.currentIndex() in range(0, 6):
+                if self.comboBox_Quality_S.currentIndex() == 0:
+                    self.comboBox.clear()
+                    self.comboBox_update()
+                else:
+                    self.comboBox.clear()
+                    self.comboBox.addItems(Item.Quality_Check(self, './Last_List_Fille', self.comboBox_Quality_S.currentIndex()))
+        
+        except Exception as e:
+            print(f'Error in Sorting_Item function: {e}')
+
+
+    def end_list(self, item_list_f, tier_list, rarity_list):
+        item_list_new = []
+        Res_list = List_item.Resource
+
+        #Делаем проверку на передачу пустых списков
+        if not item_list_f or not tier_list or not rarity_list:
+            return None
+
+        # Пробегаем через список
+        for item in item_list_f: #предметов 
+            for tier in tier_list:  #уровня
+                for rarity in rarity_list: #редкости
+
+                    if item != 'STONEBLOCK':
+                        item_list_new.append(tier + item + rarity)
+                    else:
+                        item_list_new.append(tier + item)
+
+        # Создаём функцию для переименования предметов
+        def rename(string:str):
+            # Если последние два символа не подходят ни под одно из вышеперечисленных условий, оставляем строку без изменения
+            if string[-2:] == "@1":
+                return string[:-2] + "_LEVEL1@1"
+            elif string[-2:] == "@2":
+                return string[:-2] + "_LEVEL2@2"
+            elif string[-2:] == "@3":
+                return string[:-2] + "_LEVEL3@3"
+            elif string[-2:] == "@4":
+                return string[:-2] + "_LEVEL4@4"
+            else:
+                return string
+        
+        # Создаём функцию для удаления уровня из названия предмета    
+        def trim_string(string:str):
+            if string[-2] == "@":   # Если в строке последний символ перед "@", обрезаем эту часть
+                return string[3:-2]
+            else:   # Если в строке последний символ после "@", обрезаем строку начиная с 3-го символа
+                return string[3:]
+
+
+        for i in range(len(item_list_new)):
+            item = item_list_new[i]
+            if trim_string(item) in Res_list:
+                item_list_new[i] = rename(item)
+                
+        return item_list_new
+
 
     def Save_Json_From_Url(self, url: str, parse_date_column: str, pretty_print=False):
         try:
@@ -904,25 +1061,39 @@ class Ui_MainWindow_2(object):
             print(f"Failed to save data to {file_name}: {e}")
 
 
-    def Knew_num_Start(self, num: int):
-        num_file = num
-
-        def List_Start():
-
-            if num_file == 1: name_file = './Start_File/' + 'Last_Armo_Lists' + '.json'
-            if num_file == 2: name_file = './Start_File/' + 'Last_Bag_Lists' + '.json'
-            if num_file == 3: name_file = './Start_File/' + 'Last_Resours_Lists' + '.json'
-            if num_file == 4: name_file = './' + 'Last_Lists' + '.json'
-            
-            with open((name_file), 'r') as file:
+    def List_Start(self, num_file):
+        name_file = ''
+        if num_file == 1: 
+            name_file = './Start_File/Last_Armo_Lists.json'
+        elif num_file == 2: 
+            name_file = './Start_File/Last_Bag_Lists.json'
+        elif num_file == 3: 
+            name_file = './Start_File/Last_Resours_Lists.json'
+        elif num_file == 4: 
+            name_file = './Last_Lists.json'
+        else:
+            return None
+        
+        try:
+            with open(name_file, 'r') as file:
                 data = json.load(file)
-                URL = stock + ','. join(self.end_list(data['items'], data['tiers'], data['rarities'])) + location + ','. join(data['locations']) + qualities_url + str(data['qualities'])
-
+                item_list = self.end_list(data['items'], data['tiers'], data['rarities'])
+                if not item_list:
+                    return None
+                URL = stock + ','.join(item_list) + location + ','.join(data['locations']) + qualities_url + str(data['qualities'])
                 self.Save_Json_From_Url(URL, 'item_id', True)
                 self.comboBox_update()
 
-        List_Start()
+        except Exception as e:
+            print("Error: ", e)
+            return None
 
+            # with open(name_file, 'r') as file:
+            #     data = json.load(file)
+            #     URL = stock + ','. join(self.end_list(data['items'], data['tiers'], data['rarities'])) + location + ','. join(data['locations']) + qualities_url + str(data['qualities'])
+
+            #     self.Save_Json_From_Url(URL, 'item_id', True)
+            #     self.comboBox_update()
 
 stock = 'https://www.albion-online-data.com/api/v2/stats/view/'
 location = '?locations='

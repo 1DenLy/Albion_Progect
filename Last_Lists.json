@@ -1,10 +1,13 @@
 {
     "items": [
         "HEAD_CLOTH_SET3",
-        "ARMOR_CLOTH_SET2"
+        "HEAD_CLOTH_SET2",
+        "ARMOR_CLOTH_SET2",
+        "ARMOR_CLOTH_SET3"
     ],
     "tiers": [
-        "T4_"
+        "T4_",
+        "T5_"
     ],
     "rarities": [
         ""
