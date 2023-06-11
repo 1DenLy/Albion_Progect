@@ -1,8 +1,8 @@
+import os, json, pandas, webbrowser
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QButtonGroup
 from datetime import datetime
-
-import os, json, pandas, webbrowser
 
 import List_item
 
@@ -1334,7 +1334,7 @@ class Ui_MainWindow(object):
 
         self.pushButton_Start.clicked.connect(lambda: self.New_start())
         self.pushButton_Exit.clicked.connect(lambda: self.exit())
-
+        
         
     def main_button(self, group_button: list, item_list: list):
         global Item_list_f
@@ -1501,8 +1501,6 @@ qualities_url = '&qualities='
 
 locations = ['Caerleon','Fortsterling','Martlock','Thetford','Lymhurst','Bridgewatch']
 locations_list = ['BlackMarket']
-
-
 
 Item_list_f = []
 Item_list_s = []
