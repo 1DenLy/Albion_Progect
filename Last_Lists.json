@@ -1,14 +1,9 @@
 {
     "items": [
-        "ORE",
         "METALBAR"
     ],
     "tiers": [
-        "T4_",
-        "T5_",
-        "T6_",
-        "T7_",
-        "T8_"
+        "T4_"
     ],
     "rarities": [
         ""
