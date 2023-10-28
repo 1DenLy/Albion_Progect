@@ -1,13 +1,14 @@
 {
     "items": [
-        "HEAD_CLOTH_SET3",
-        "HEAD_CLOTH_SET2",
-        "ARMOR_CLOTH_SET2",
-        "ARMOR_CLOTH_SET3"
+        "ORE",
+        "METALBAR"
     ],
     "tiers": [
         "T4_",
-        "T5_"
+        "T5_",
+        "T6_",
+        "T7_",
+        "T8_"
     ],
     "rarities": [
         ""
@@ -21,5 +22,5 @@
         "Martlock",
         "Thetford"
     ],
-    "qualities": 2
+    "qualities": 1
 }
