@@ -1,6 +1,6 @@
 {
     "items": [
-        "METALBAR"
+        "HEAD_CLOTH_SET3"
     ],
     "tiers": [
         "T4_"
@@ -10,12 +10,7 @@
     ],
     "locations": [
         "BlackMarket",
-        "Bridgewatch",
-        "Caerleon",
-        "Fortsterling",
-        "Lymhurst",
-        "Martlock",
-        "Thetford"
+        "Fortsterling"
     ],
     "qualities": 1
 }

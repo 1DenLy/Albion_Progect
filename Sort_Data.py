@@ -17,7 +17,7 @@ locations = ['Black Market','Caerleon','Fort Sterling','Lymhurst','Thetford','Ma
 
 List_name_check_Armo = ['ARM', 'HEA', 'SHO']
 List_name_check_Thinks = ['BAG', 'CAP']
-Rarytyes = ['@1', '@2', '@3', '@4']
+
 
 
 class Item():
@@ -91,7 +91,7 @@ class Item():
         return file_names
 
 
-    def Item_in_listes(self, path: str, taken_name: str):
+    def Item_in_lists(self, path: str, taken_name: str):
         global Item_sort_list
         # Очищаем список перед добавлением новых элементов
         Item_sort_list.clear()
@@ -103,27 +103,27 @@ class Item():
                 try:
                     # Открываем JSON файл и загружаем данные
                     with open(file_n, 'r') as opened_file:
-                        datas = json.load(opened_file)
+                        dates = json.load(opened_file)
 
-                        for i in range(len(datas['item_id'])):
+                        for i in range(len(dates['item_id'])):
                             i = str(i)
 
                             # Создаем экземпляр Item для каждого элемента в файле
-                            Generated_item = Item(datas['item_id'][i], 
-                                        datas['city'][i], 
-                                        datas['sell_price_min'][i], 
-                                        datas['sell_price_min_date'][i], 
-                                        datas['sell_price_max'][i], 
-                                        datas['sell_price_max_date'][i], 
-                                        datas['buy_price_min'][i], 
-                                        datas['buy_price_min_date'][i], 
-                                        datas['buy_price_max'][i], 
-                                        datas['buy_price_max_date'][i])
+                            Generated_item = Item(dates['item_id'][i], 
+                                        dates['city'][i], 
+                                        dates['sell_price_min'][i], 
+                                        dates['sell_price_min_date'][i], 
+                                        dates['sell_price_max'][i], 
+                                        dates['sell_price_max_date'][i], 
+                                        dates['buy_price_min'][i], 
+                                        dates['buy_price_min_date'][i], 
+                                        dates['buy_price_max'][i], 
+                                        dates['buy_price_max_date'][i])
                             # Добавляем элемент в список
                             Generated_item.__AddItem(Item_sort_list)
 
                 except (IOError, ValueError, KeyError) as element:
-                    print(f'An error occured while reading the JSON file: {element}')
+                    print(f'An error occurred while reading the JSON file: {element}')
 
 
     def Quality_Check(self, path: str, need_quality: int):
@@ -135,8 +135,8 @@ class Item():
 
             if os.path.isfile(file_n) and file_n.endswith('.json'):
                 with open(file_n, 'r') as opened_file:
-                    datas = json.load(opened_file)
-                    qua = datas['quality'].get('1')
+                    dates = json.load(opened_file)
+                    qua = dates['quality'].get('1')
 
                     if qua == need_quality:
                         need_file.append(file)
@@ -821,8 +821,8 @@ class Ui_MainWindow_2(object):
         self.Main_List.itemClicked.connect(self.Update_info)
 
         self.comboBox_update()
-        # соединяем сигнал activated элемента управления comboBox с методом Item_in_listes класса Item с передачей аргументов
-        self.comboBox.activated[str].connect(lambda: Item.Item_in_listes(self, './Last_List_Fille', self.comboBox.currentText()))
+        # соединяем сигнал activated элемента управления comboBox с методом Item_in_lists класса Item с передачей аргументов
+        self.comboBox.activated[str].connect(lambda: Item.Item_in_lists(self, './Last_JSON_File', self.comboBox.currentText()))
         # соединяем сигнал activated элемента управления comboBox с методом Add_item_in_QlistWidget
         self.comboBox.activated[str].connect(lambda: self.Add_item_in_QlistWidget())
         # соединяем сигнал clicked элемента управления pushButton с методом Knew_num_Start с передачей аргумента 1 2 3 4
@@ -838,7 +838,7 @@ class Ui_MainWindow_2(object):
 
 
     def comboBox_update(self):
-        self.comboBox.addItems(Find_All_Filename('./Last_List_Fille'))
+        self.comboBox.addItems(Find_All_Filename('./Last_JSON_File'))
 
 
     def Add_item_in_QlistWidget(self):
@@ -985,7 +985,7 @@ class Ui_MainWindow_2(object):
                     self.comboBox_update()
                 else:
                     self.comboBox.clear()
-                    self.comboBox.addItems(Item.Quality_Check(self, './Last_List_Fille', self.comboBox_Quality_S.currentIndex()))
+                    self.comboBox.addItems(Item.Quality_Check(self, './Last_JSON_File', self.comboBox_Quality_S.currentIndex()))
         
         except Exception as e:
             print(f'Error in Sorting_Item function: {e}')
@@ -1049,7 +1049,7 @@ class Ui_MainWindow_2(object):
         
         file_name = f"Prices_{current_time}.json"
 
-        path_to_save = './Last_List_Fille/'
+        path_to_save = './Last_JSON_File/'
         
         if os.path.isfile(file_name):   # Проверяем, существует ли уже файл
             print(f"File {file_name} already exists, will not overwrite")
