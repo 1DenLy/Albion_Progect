@@ -1,4 +1,3 @@
-
 import os, json, pandas
 
 from PyQt5 import QtCore, QtGui, QtWidgets
