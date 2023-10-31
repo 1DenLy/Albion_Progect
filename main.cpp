@@ -1,11 +1,13 @@
 #include <iostream>
+#include <vector>
 #include <string>
 #include <fstream>
 #include <filesystem>
 #include <nlohmann/json.hpp>
 
 using namespace std;
-
+using json = nlohmann::json;
+namespace fs = filesystem;
 
 // Main Class of the Application
 class generalItem {
@@ -73,12 +75,48 @@ public:
 };
 
 
+string readJsonFile(const fs::path& filePath) {
+    ifstream file(filePath);
+    if (!file.is_open()) {
+        throw runtime_error("Не удалось открыть файл " + filePath.string());
+    }
+    return string((istreambuf_iterator<char>(file)), istreambuf_iterator<char>());
+}
+
+
+
 
 int main(){
 
+    cout << "yes";
+
+    const std::string mainFolderOfJsonFile = "Last_JSON_File/";
+
+    if (!fs::is_directory(mainFolderOfJsonFile)) {
+        cerr << "The specified path is not a folder" << endl;
+        return 1;
+    }
+
+    try {
+        for (const auto& entry : fs::directory_iterator(mainFolderOfJsonFile)) {
+            if (entry.is_regular_file() && entry.path().extension() == ".json") {
+                string fileName = entry.path().filename().string();
+
+                string jsonDataString = readJsonFile(entry.path());
+                json jsonData = json::parse(jsonDataString);
+
+                //Workspace directory
+
+                cout << "yes";
 
 
-
+                
+            }
+        }
+    } catch (const exception& e) {
+        cerr << "Ошибка: " << e.what() << endl;
+        return 1;
+    }
 
 
     return 0;
