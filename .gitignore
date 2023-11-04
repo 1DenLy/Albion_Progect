@@ -3,3 +3,7 @@ Last_JSON_File/
 Interface`s_File/
 .vscode/
 json-develop/
+.pytest_cache/
+main.exe
+main.cpp
+.gitignore

@@ -17,6 +17,8 @@ locations = ['Black Market','Caerleon','Fort Sterling','Lymhurst','Thetford','Ma
 List_name_check_Armo = ['ARM', 'HEA', 'SHO']
 List_name_check_Thinks = ['BAG', 'CAP']
 
+List_name_check_Thinks[2] = 'The'
+
 
 
 class Item():
