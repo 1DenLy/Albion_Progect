@@ -1,4 +1,5 @@
 import os, json, pandas, webbrowser
+import subprocess
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QButtonGroup
@@ -10,6 +11,8 @@ from Sort_Data import Ui_MainWindow_2
 
 
 qualities = 1
+
+subprocess.call(["main.exe"])
 
 class Ui_MainWindow(object):
     def Open_Program(self):

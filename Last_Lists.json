@@ -1,16 +1,22 @@
 {
     "items": [
-        "HEAD_CLOTH_SET3"
+        "ARMOR_PLATE_SET1",
+        "ARMOR_PLATE_SET3",
+        "ARMOR_PLATE_SET2"
     ],
     "tiers": [
-        "T4_"
+        "T4_",
+        "T5_",
+        "T6_"
     ],
     "rarities": [
         ""
     ],
     "locations": [
         "BlackMarket",
-        "Fortsterling"
+        "Caerleon",
+        "Fortsterling",
+        "Lymhurst"
     ],
     "qualities": 1
 }

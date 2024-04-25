@@ -88,8 +88,6 @@ string readJsonFile(const fs::path& filePath) {
 
 int main(){
 
-    cout << "yes";
-
     const std::string mainFolderOfJsonFile = "Last_JSON_File/";
 
     if (!fs::is_directory(mainFolderOfJsonFile)) {
